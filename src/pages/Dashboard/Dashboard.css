@@ -1,0 +1,903 @@
+* {
+    box-sizing: border-box;
+}
+
+button {
+    font: inherit;
+}
+
+.app {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    background: #f3f6fb;
+    color: #132855;
+    transition: .25s;
+}
+
+.app.collapsed {
+    grid-template-columns: 68px 1fr;
+}
+
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    background: linear-gradient(155deg, #0a3068 0%, #1558be 62%, #133b86 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 8px 0 30px #164b9330;
+    z-index: 2;
+}
+
+.collapse {
+    position: absolute;
+    right: -15px;
+    top: 24px;
+    width: 30px;
+    height: 30px;
+    border: 0;
+    border-radius: 50%;
+    background: white;
+    color: #143770;
+    box-shadow: 0 4px 14px #1d356c38;
+    cursor: pointer;
+    font-size: 22px;
+    z-index: 3;
+}
+
+.collapsed .collapse {
+    transform: rotate(180deg);
+}
+
+.brand {
+    min-height: 165px;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    padding: 18px;
+    border-bottom: 1px solid #ffffff1c;
+}
+
+.bulb {
+    font-size: 43px;
+    filter: drop-shadow(0 5px 7px #061c42aa);
+}
+
+.brand h1 {
+    color: #e9d99e;
+    font-size: 15px;
+    line-height: 1.45;
+    letter-spacing: 1.3px;
+    margin: 9px 0 0;
+}
+
+nav {
+    padding: 8px 0;
+    flex: 1;
+}
+
+nav button {
+    width: 100%;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 0 23px;
+    border: 0;
+    border-left: 4px solid transparent;
+    color: #eaf3ff;
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+    transition: .2s;
+    font-size: 14px;
+}
+
+nav button:hover {
+    background: #ffffff14;
+}
+
+nav button.active {
+    background: #ffffff20;
+    border-left-color: #f3e7a0;
+}
+
+nav button b {
+    width: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.profile {
+    margin: 0 12px 10px;
+    padding: 11px 13px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    border-left: 4px solid #f3e7a0;
+    background: #ffffff12;
+    border-radius: 8px;
+}
+
+.avatar {
+    background: #f3ce4c;
+    color: #183a72;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+}
+
+.profile strong, .profile span {
+    display: block;
+    font-size: 11px;
+}
+
+.profile span {
+    opacity: .7;
+    margin-top: 3px;
+}
+
+.sidebar footer {
+    text-align: center;
+    font-size: 10px;
+    line-height: 1.5;
+    padding: 8px;
+    opacity: .75;
+}
+
+.collapsed .brand h1, .collapsed nav span, .collapsed .profile div:not(.avatar), .collapsed footer {
+    display: none;
+}
+
+.collapsed .brand {
+    min-height: 130px;
+    padding: 12px;
+}
+
+.collapsed .bulb {
+    font-size: 38px;
+}
+
+.collapsed nav button {
+    justify-content: center;
+    padding: 0;
+}
+
+.collapsed .profile {
+    justify-content: center;
+    padding: 10px 4px;
+    margin: 8px;
+    border-left: 0;
+}
+
+main {
+    min-width: 0;
+    padding: 24px clamp(18px, 2vw, 34px) 34px;
+    overflow: hidden;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.eyebrow {
+    font-size: 11px;
+    font-weight: 800;
+    color: #2d66bd;
+    letter-spacing: 2px;
+}
+
+header h2 {
+    font-size: clamp(23px, 1.7vw, 30px);
+    margin: 5px 0 0;
+    color: #0a2f69;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+}
+
+.periods {
+    display: flex;
+    align-items: center;
+    height: 42px;
+    background: #e9edf4;
+    padding: 4px;
+    border-radius: 12px;
+}
+
+.periods button {
+    border: 0;
+    padding: 9px 13px;
+    border-radius: 9px;
+    background: transparent;
+    color: #4c5669;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 13px;
+}
+
+.periods button.selected {
+    color: white;
+    background: #17468d;
+    box-shadow: 0 4px 10px #17468d40;
+}
+
+/* Custom date range picker (shown when "Tùy chỉnh" is selected) */
+.date-range {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 42px;
+    background: white;
+    border: 1px solid #dde3ed;
+    border-radius: 12px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px #17468d14;
+    animation: pop .2s ease;
+}
+
+.date-range input[type="date"] {
+    border: 0;
+    background: transparent;
+    color: #17468d;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 2px;
+    cursor: pointer;
+}
+
+.date-range input[type="date"]:focus {
+    outline: none;
+}
+
+.date-range-sep {
+    font-size: 12px;
+    color: #7a8495;
+}
+
+.download {
+    border: 0;
+    border-radius: 999px;
+    padding: 10px 16px;
+    color: white;
+    background: #11975b;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 8px 20px #11975b2b;
+    white-space: nowrap;
+    font-size: 13px;
+}
+
+.bell {
+    position: relative;
+    border: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: white;
+    color: #106b4b;
+    cursor: pointer;
+    box-shadow: 0 5px 18px #17315b18;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.bell-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.bell sup {
+    position: absolute;
+    right: -5px;
+    top: -6px;
+    background: #c72d42;
+    color: white;
+    border-radius: 99px;
+    padding: 3px 6px;
+    font-weight: 800;
+}
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.kpi {
+    min-height: 142px;
+    padding: 20px 16px;
+    border-radius: 16px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 14px 28px #18376718;
+    overflow: hidden;
+    position: relative;
+}
+
+.kpi::after {
+    content: '';
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: #fff1;
+    right: -75px;
+    bottom: -95px;
+}
+
+.kpi.revenue {
+    background: linear-gradient(145deg, #153b83, #3475d5);
+}
+
+.kpi.expense {
+    background: linear-gradient(145deg, #a92d4b, #e25d7a);
+}
+
+.kpi.profit {
+    background: linear-gradient(145deg, #137d4e, #42ba82);
+}
+
+.kpi.balance {
+    background: linear-gradient(145deg, #a4730e, #e0b44d);
+}
+
+.icon {
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: inline-grid;
+    place-items: center;
+    background: #ffffff19;
+    font-size: 20px;
+}
+
+.kpi span {
+    opacity: .78;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.kpi strong {
+    display: block;
+    margin: 6px 0;
+    font-size: clamp(15px, 1.25vw, 20px);
+    line-height: 1.25;
+}
+
+.kpi small {
+    font-size: .72em;
+}
+
+.kpi p {
+    margin: 0;
+    font-size: 10px;
+    line-height: 1.45;
+    opacity: .82;
+}
+
+.kpi p b {
+    display: block;
+}
+
+.kpi em {
+    display: inline-block;
+    font-style: normal;
+    background: #c53048;
+    padding: 3px 7px;
+    border-radius: 5px;
+    color: white;
+    font-weight: 800;
+    margin-top: 4px;
+}
+
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.metric {
+    background: linear-gradient(145deg, #121b2d, #101624);
+    color: #c8d0df;
+    border-radius: 16px;
+    padding: 17px 19px;
+    box-shadow: 0 12px 24px #1017261f;
+}
+
+.metric h3 {
+    font-size: 13px;
+    margin: 0 0 10px;
+    display: flex;
+    align-items: center;
+}
+
+.metric h3 span {
+    font-weight: 500;
+    margin-left: 5px;
+}
+
+.metric .icon {
+    width: 30px;
+    height: 30px;
+    flex-basis: 30px;
+    margin-right: 9px;
+    font-size: 15px;
+    border-radius: 9px;
+}
+
+.metric strong {
+    font-size: 22px;
+    display: block;
+}
+
+.metric small {
+    font-size: 14px;
+}
+
+.metric p {
+    font-size: 11px;
+    margin: 3px 0 13px;
+}
+
+.metric > div {
+    border-top: 1px dashed #ffffff1b;
+    padding-top: 11px;
+    font-size: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.metric.red strong {
+    color: #ed3f56;
+}
+
+.metric.red .icon {
+    color: #ed3f56;
+    background: #ed3f5619;
+}
+
+.metric.yellow strong {
+    color: #f1bd36;
+}
+
+.metric.yellow p {
+    color: #5d9bff
+}
+
+.metric.yellow .icon {
+    color: #f1bd36;
+    background: #f1bd3619;
+}
+
+.metric.green strong, .metric.green p {
+    color: #35c780;
+}
+
+.metric.green .icon {
+    color: #35c780;
+    background: #35c78019;
+}
+
+.charts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.charts article {
+    background: white;
+    min-height: 260px;
+    padding: 18px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px #1934660c;
+}
+
+.charts h3 {
+    margin: 0 0 18px;
+    font-size: 14px;
+    color: #153b79;
+}
+
+.legend {
+    text-align: center;
+    font-size: 11px;
+    color: #59667d;
+    margin-bottom: 12px;
+}
+
+.legend i {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 4px 0 12px;
+    border-radius: 2px;
+}
+
+.blue {
+    background: #4f7fd1
+}
+
+.pink {
+    background: #ef7894
+}
+
+.bars {
+    height: 155px;
+    border-left: 1px solid #dde3ed;
+    border-bottom: 1px solid #dde3ed;
+    background: repeating-linear-gradient(to bottom, #edf0f5 0 1px, transparent 1px 46px);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-evenly;
+    padding: 0 12px;
+}
+
+.bar-pair {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 100%;
+}
+
+.bars i {
+    width: 14px;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    cursor: pointer;
+    transition: filter .15s ease;
+}
+
+.bars i:hover {
+    filter: brightness(1.08);
+}
+
+/* Tooltip dùng chung cho cột (bars) và lát donut, đọc nội dung từ thuộc tính data-tooltip */
+.bars i[data-tooltip]::after,
+.donut-wedge[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    background: #102b59;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .15s ease, transform .15s ease;
+    box-shadow: 0 8px 20px #0d234d33;
+    z-index: 6;
+}
+
+.bars i[data-tooltip]::after {
+    bottom: 100%;
+    left: 50%;
+    margin-bottom: 8px;
+    transform: translate(-50%, 6px);
+}
+
+.bars i[data-tooltip]:hover::after {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.axis {
+    display: flex;
+    justify-content: space-around;
+    font-size: 10px;
+    color: #7a8495;
+    margin-top: 8px;
+}
+
+.donut-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding-top: 8px;
+}
+
+.donut-wrap {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    flex: 0 0 auto;
+}
+
+.donut {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: conic-gradient(#edc263 0 82%, #35b985 82% 91%, #4886d4 91% 96%, #ee7d62 96%);
+    position: relative;
+}
+
+/* Lớp phủ trong suốt chia theo lát bánh (clip-path), dùng để bắt hover + hiện tooltip */
+.donut-wedge {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    background: transparent;
+    transition: background .15s ease;
+}
+
+.donut-wedge:hover {
+    background: rgba(16, 43, 89, .16);
+}
+
+.donut-wedge[data-tooltip]::after {
+    left: var(--tx);
+    top: var(--ty);
+    transform: translate(-50%, -50%) scale(.9);
+}
+
+.donut-wedge[data-tooltip]:hover::after {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.donut.income {
+    background: conic-gradient(#edc263 0 94%, #7558bb 94% 98%, #35b985 98%);
+}
+
+.donut::after {
+    content: '';
+    position: absolute;
+    inset: 35px;
+    background: white;
+    border-radius: 50%;
+}
+
+.donut.income::after {
+    inset: 0;
+    background: transparent;
+}
+
+.donut span {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    z-index: 1;
+    font-size: 13px;
+    font-weight: 800;
+    color: #334d79;
+}
+
+.donut.income span {
+    color: white;
+    text-shadow: 0 1px 3px #886818;
+}
+
+.donut-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    font-size: 11px;
+    color: #586378;
+}
+
+.donut-legend span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 2px;
+    background: #edc263
+}
+
+.dot.d1 {
+    background: #7558bb
+}
+
+.dot.d2 {
+    background: #35b985
+}
+
+.dot.d3 {
+    background: #4886d4
+}
+
+.toast {
+    position: fixed;
+    bottom: 28px;
+    right: 30px;
+    background: #102b59;
+    color: white;
+    padding: 14px 20px;
+    border-radius: 10px;
+    box-shadow: 0 12px 30px #0d234d4d;
+    z-index: 10;
+    animation: pop .25s ease;
+}
+
+@keyframes pop {
+    from {
+        transform: translateY(12px);
+        opacity: 0
+    }
+}
+
+@media (max-width: 1050px) {
+    .app {
+        grid-template-columns: 205px 1fr;
+    }
+
+    .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    header {
+        align-items: flex-start;
+    }
+
+    .header-actions {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+}
+
+@media (max-width: 900px) {
+    .app, .app.collapsed {
+        grid-template-columns: 76px 1fr;
+    }
+
+    .sidebar .brand h1, .sidebar nav span, .sidebar .profile div:not(.avatar), .sidebar footer {
+        display: none;
+    }
+
+    .brand {
+        min-height: 120px;
+        padding: 8px
+    }
+
+    .bulb {
+        font-size: 36px
+    }
+
+    .sidebar nav button {
+        justify-content: center;
+        padding: 0
+    }
+
+    .profile {
+        justify-content: center;
+        padding: 8px;
+        margin: 8px;
+        border: 0
+    }
+
+    .collapse {
+        display: none;
+    }
+
+    header {
+        display: block;
+    }
+
+    .header-actions {
+        margin-top: 20px;
+        justify-content: flex-start;
+    }
+
+    .metric-grid, .charts {
+        grid-template-columns:1fr;
+    }
+}
+
+@media (max-width: 620px) {
+    .app, .app.collapsed {
+        display: block;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: auto;
+        width: 100%;
+        height: 66px;
+        z-index: 5;
+    }
+
+    .brand, .profile, .sidebar footer {
+        display: none
+    }
+
+    .sidebar nav {
+        display: flex;
+        padding: 0;
+        overflow-x: auto
+    }
+
+    .sidebar nav button {
+        min-width: 64px;
+        height: 66px;
+        border-left: 0;
+        border-top: 3px solid transparent
+    }
+
+    .sidebar nav button.active {
+        border-top-color: #f3e7a0
+    }
+
+    main {
+        padding: 24px 15px 88px;
+    }
+
+    .kpi-grid {
+        grid-template-columns:1fr;
+    }
+
+    .periods {
+        width: 100%;
+        overflow: auto;
+    }
+
+    .periods button {
+        padding: 10px 12px;
+    }
+
+    .date-range {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .download {
+        width: 100%;
+    }
+
+    .bell {
+        position: absolute;
+        right: 16px;
+        top: 22px;
+    }
+
+    .donut-layout {
+        gap: 14px;
+    }
+
+    .donut-wrap {
+        width: 145px;
+        height: 145px
+    }
+
+    .donut {
+        width: 145px;
+        height: 145px
+    }
+
+    .donut::after {
+        inset: 37px
+    }
+}
