@@ -1,0 +1,847 @@
+.suppliers-page {
+    min-width: 0;
+    min-height: 100vh;
+    padding: 28px clamp(20px, 3vw, 42px) 45px;
+    color: #505965;
+    background: #f4f7fd;
+}
+
+.suppliers-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 27px
+}
+
+.suppliers-header h2 {
+    margin: 0;
+    color: #0a3474;
+    font-size: clamp(25px, 2.25vw, 34px)
+}
+
+.suppliers-header > div {
+    display: flex;
+    align-items: center;
+    gap: 12px
+}
+
+.suppliers-header button {
+    height: 43px;
+    border: 0;
+    border-radius: 23px;
+    font-weight: 700
+}
+
+.export-suppliers {
+    padding: 0 21px;
+    color: #fff;
+    background: #189344
+}
+
+.add-supplier {
+    padding: 0 22px;
+    color: #fff;
+    background: #0b4b9c
+}
+
+.suppliers-bell {
+    position: relative;
+    width: 43px;
+    color: #269b69;
+    background: #eaf6ef;
+    font-size: 20px
+}
+
+.suppliers-bell sup {
+    position: absolute;
+    top: -7px;
+    right: -3px;
+    padding: 3px 6px;
+    border-radius: 12px;
+    color: #fff;
+    background: #d4414e;
+    font-size: 9px
+}
+
+.supplier-summary {
+    display: grid;
+    grid-template-columns:minmax(300px, 1fr) 1.35fr;
+    gap: 35px;
+    align-items: flex-start;
+    padding: 19px 18px;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(18, 56, 106, .06)
+}
+
+.supplier-summary label {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 7px;
+    background: #f4f6f9
+}
+
+.supplier-summary label span {
+    color: #164f90;
+    font-size: 24px
+}
+
+.supplier-summary input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent
+}
+
+.supplier-summary > div {
+    padding-left: 30px;
+    border-left: 1px solid #e6eaf0
+}
+
+.supplier-summary > div > span, .supplier-summary strong {
+    display: block
+}
+
+.supplier-summary strong {
+    margin: 6px 0;
+    color: #bc3045;
+    font-size: 20px
+}
+
+.supplier-summary p {
+    margin: 4px 0;
+    padding-top: 3px;
+    border-top: 1px dashed #ddd;
+    font-size: 11px
+}
+
+.supplier-summary p b {
+    color: #b73548
+}
+
+.supplier-table-card {
+    margin-top: 27px;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(18, 56, 106, .06);
+    overflow: hidden
+}
+
+.supplier-toolbar {
+    min-height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 13px;
+    color: #7d8590;
+    font-size: 11px
+}
+
+.supplier-pages {
+    display: flex;
+    gap: 7px
+}
+
+.supplier-pages button {
+    width: 34px;
+    height: 34px;
+    border: 1px solid #e0e5ec;
+    border-radius: 5px;
+    color: #56606b;
+    background: #fff
+}
+
+.supplier-pages button.active {
+    color: #fff;
+    border-color: #1555a4;
+    background: #1555a4
+}
+
+.supplier-pages button:disabled {
+    opacity: .35
+}
+
+.supplier-table-scroll {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden
+}
+
+.supplier-table {
+    width: 100%;
+    min-width: 2350px;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-size: 13px
+}
+
+.supplier-table th, .supplier-table td {
+    padding: 13px 12px;
+    border-bottom: 1px solid #e0e5ec;
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.5;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal
+}
+
+.supplier-table th {
+    font-weight: 600;
+    vertical-align: middle
+}
+
+.supplier-table th:nth-child(1) {
+    width: 300px
+}
+
+.supplier-table th:nth-child(2) {
+    width: 145px
+}
+
+.supplier-table th:nth-child(3) {
+    width: 220px
+}
+
+.supplier-table th:nth-child(4) {
+    width: 360px
+}
+
+.supplier-table th:nth-child(5) {
+    width: 145px
+}
+
+.supplier-table th:nth-child(6) {
+    width: 180px
+}
+
+.supplier-table th:nth-child(7) {
+    width: 320px
+}
+
+.supplier-table th:nth-child(8), .supplier-table th:nth-child(9), .supplier-table th:nth-child(10) {
+    width: 190px
+}
+
+.supplier-table th:nth-child(11) {
+    width: 140px
+}
+
+.supplier-name {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    color: #154f90;
+    background: transparent;
+    text-align: left;
+    text-decoration: underline;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+    white-space: normal;
+    overflow-wrap: anywhere
+}
+
+.supplier-total, .supplier-paid, .supplier-debt {
+    white-space: nowrap;
+    text-align: right;
+    font-variant-numeric: tabular-nums
+}
+
+.supplier-total {
+    color: #6b35b0;
+    font-weight: 600
+}
+
+.supplier-paid {
+    color: #2b9c62;
+    font-weight: 600
+}
+
+.supplier-debt {
+    color: #d13f50;
+    font-weight: 700
+}
+
+.supplier-actions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap
+}
+
+.supplier-actions .ui-icon-button {
+    flex: 0 0 30px;
+    width: 30px;
+    height: 30px;
+    background: transparent
+}
+
+.supplier-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: grid;
+    place-items: center;
+    padding: 18px;
+    background: rgba(13, 22, 35, .54);
+    backdrop-filter: blur(1px)
+}
+
+.supplier-modal, .supplier-payment {
+    width: min(600px, calc(100vw - 28px));
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 25px 65px rgba(4, 20, 44, .3);
+    overflow: hidden
+}
+
+.supplier-modal > header, .supplier-payment > header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e6eaf0
+}
+
+.supplier-modal h2, .supplier-payment h2 {
+    margin: 0;
+    color: #2868ac;
+    font-size: 19px
+}
+
+.supplier-modal header button, .supplier-payment header button {
+    border: 0;
+    color: #66707b;
+    background: transparent;
+    font-size: 23px
+}
+
+.supplier-modal form {
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    gap: 14px 18px;
+    padding: 20px
+}
+
+.supplier-field {
+    display: grid;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 600
+}
+
+.supplier-field--full {
+    grid-column: 1/-1
+}
+
+.supplier-field b {
+    color: #df4652
+}
+
+.supplier-field input, .supplier-field select, .supplier-field textarea, .supplier-payment input, .supplier-payment textarea {
+    width: 100%;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 5px;
+    outline: 0;
+    background: #f5f7fa;
+    font-family: inherit
+}
+
+.supplier-field input, .supplier-field select, .supplier-payment input {
+    height: 40px
+}
+
+.supplier-field textarea, .supplier-payment textarea {
+    padding-top: 10px
+}
+
+.supplier-modal footer, .supplier-payment footer {
+    grid-column: 1/-1;
+    display: flex;
+    justify-content: center;
+    gap: 10px
+}
+
+.supplier-modal footer button, .supplier-payment footer button {
+    padding: 9px 18px;
+    border: 0;
+    border-radius: 20px;
+    color: #68717c;
+    background: #f0f2f4;
+    font-weight: 700
+}
+
+.supplier-modal footer button:last-child, .supplier-payment footer button:last-child {
+    color: #fff;
+    background: #1761af
+}
+
+.supplier-payment {
+    width: min(440px, calc(100vw - 28px))
+}
+
+.supplier-payment form {
+    display: grid;
+    gap: 13px;
+    padding: 20px
+}
+
+.supplier-payment form > strong {
+    color: #185492
+}
+
+.supplier-payment p {
+    margin: 0;
+    font-size: 11px
+}
+
+.supplier-payment p b {
+    color: #d13f50
+}
+
+.supplier-payment label {
+    display: grid;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 600
+}
+
+.supplier-toast {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    z-index: 70;
+    padding: 12px 18px;
+    border-radius: 9px;
+    color: #fff;
+    background: #103767;
+    font-size: 12px
+}
+
+.supplier-debt > button {
+    padding: 0;
+    border: 0;
+    color: inherit;
+    background: transparent;
+    text-decoration: underline;
+    font: inherit;
+    font-weight: inherit;
+    white-space: nowrap
+}
+
+.supplier-debt-overlay {
+    z-index: 60
+}
+
+.supplier-debt-modal {
+    width: min(1120px, calc(100vw - 28px));
+    max-height: calc(100vh - 35px);
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 25px 70px rgba(4, 20, 44, .32);
+    overflow: hidden
+}
+
+.supplier-debt-modal > header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e6eaf0
+}
+
+.supplier-debt-modal h2 {
+    margin: 0;
+    color: #2868ac;
+    font-size: 18px
+}
+
+.supplier-debt-modal header p {
+    margin: 6px 0 0;
+    font-size: 11px
+}
+
+.supplier-debt-modal header strong {
+    color: #d13f50
+}
+
+.supplier-debt-modal header > button {
+    border: 0;
+    color: #65707b;
+    background: transparent;
+    font-size: 24px
+}
+
+.supplier-debt-tools {
+    display: grid;
+    grid-template-columns:120px 1fr 190px;
+    gap: 10px;
+    padding: 13px 17px
+}
+
+.supplier-debt-tools > button {
+    border: 0;
+    border-radius: 18px;
+    color: #fff;
+    background: #24924e;
+    font-weight: 700
+}
+
+.supplier-debt-tools label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0 10px;
+    border-radius: 5px;
+    background: #f4f6f9
+}
+
+.supplier-debt-tools input, .supplier-debt-tools select {
+    width: 100%;
+    height: 36px;
+    border: 0;
+    outline: 0;
+    background: transparent
+}
+
+.supplier-debt-tools select {
+    padding: 0 9px;
+    border: 1px solid #e2e6ec;
+    border-radius: 5px
+}
+
+.supplier-debt-scroll {
+    overflow: auto
+}
+
+.supplier-debt-modal table {
+    width: 100%;
+    min-width: 1180px;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-size: 11px
+}
+
+.supplier-debt-modal th, .supplier-debt-modal td {
+    padding: 10px 9px;
+    border-bottom: 1px solid #e3e7ed;
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.4
+}
+
+.supplier-debt-modal th:nth-child(1) {
+    width: 90px
+}
+
+.supplier-debt-modal th:nth-child(2) {
+    width: 100px
+}
+
+.supplier-debt-modal th:nth-child(3), .supplier-debt-modal th:nth-child(4), .supplier-debt-modal th:nth-child(5) {
+    width: 150px
+}
+
+.supplier-debt-modal th:nth-child(6) {
+    width: 100px
+}
+
+.supplier-debt-modal th:nth-child(7) {
+    width: 145px
+}
+
+.supplier-debt-modal th:nth-child(8) {
+    width: 210px
+}
+
+.supplier-debt-modal th:nth-child(9) {
+    width: 80px
+}
+
+.debt-purple, .debt-green, .debt-red {
+    white-space: nowrap;
+    font-weight: 700
+}
+
+.debt-purple {
+    color: #6b35b0
+}
+
+.debt-green {
+    color: #29965f
+}
+
+.debt-red {
+    color: #d13f50
+}
+
+.debt-status {
+    display: inline-block;
+    padding: 4px 7px;
+    border-radius: 10px;
+    font-size: 9px;
+    white-space: nowrap
+}
+
+.debt-status--đã-thanh-toán {
+    color: #228456;
+    background: #eaf7f0
+}
+
+.debt-status--chưa-thanh-toán {
+    color: #c13b4c;
+    background: #fff0f2
+}
+
+.debt-status--thanh-toán-một-phần {
+    color: #9a6d17;
+    background: #fff7e5
+}
+
+.debt-row-actions {
+    display: flex;
+    gap: 3px
+}
+
+.debt-row-actions .ui-icon-button {
+    width: 27px;
+    height: 27px;
+    background: transparent
+}
+
+.supplier-debt-modal > footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 17px;
+    color: #7c8590;
+    font-size: 10px
+}
+
+.supplier-debt-modal > footer > button {
+    padding: 8px 18px;
+    border: 0;
+    border-radius: 18px;
+    color: #fff;
+    background: #1761af
+}
+
+@media (max-width: 760px) {
+    .suppliers-page {
+        padding: 22px 14px 85px
+    }
+
+    .suppliers-header {
+        align-items: flex-start
+    }
+
+    .suppliers-header > div {
+        flex-wrap: wrap;
+        justify-content: flex-end
+    }
+
+    .suppliers-bell, .export-suppliers {
+        display: none
+    }
+
+    .add-supplier {
+        padding: 0 13px
+    }
+
+    .supplier-summary {
+        grid-template-columns:1fr;
+        gap: 13px
+    }
+
+    .supplier-summary > div {
+        padding: 12px 0 0;
+        border-left: 0;
+        border-top: 1px solid #e6eaf0
+    }
+
+    .supplier-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+        padding: 14px
+    }
+
+    .supplier-modal form {
+        grid-template-columns:1fr
+    }
+
+    .supplier-field--full, .supplier-modal footer {
+        grid-column: 1
+    }
+}
+
+/* Popup chi tiết công nợ */
+.supplier-debt-modal {
+    width: min(1280px, calc(100vw - 40px));
+    border-radius: 18px;
+}
+
+.supplier-debt-modal > header {
+    padding: 20px 24px;
+    background: linear-gradient(135deg, #f7faff, #fff);
+}
+
+.supplier-debt-modal h2 {
+    font-size: 22px;
+    line-height: 1.35;
+}
+
+.supplier-debt-modal header p {
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+.supplier-debt-modal header strong {
+    margin-left: 5px;
+    font-size: 17px;
+}
+
+.supplier-debt-tools {
+    grid-template-columns: 145px minmax(280px, 1fr) 220px;
+    gap: 14px;
+    padding: 16px 22px;
+    border-bottom: 1px solid #e7ebf1;
+}
+
+.supplier-debt-tools > button,
+.supplier-debt-tools input,
+.supplier-debt-tools select {
+    height: 42px;
+    font-size: 13px;
+}
+
+.supplier-debt-tools label {
+    padding: 0 14px;
+    color: #1c5b9d;
+    font-size: 20px;
+}
+
+.supplier-debt-modal table {
+    min-width: 1320px;
+    font-size: 13px;
+}
+
+.supplier-debt-modal th {
+    padding: 14px 12px;
+    color: #3f4a57;
+    background: #f7f9fc;
+    font-size: 13px;
+    font-weight: 700;
+    vertical-align: middle;
+}
+
+.supplier-debt-modal td {
+    padding: 14px 12px;
+    color: #58616d;
+    font-size: 13px;
+    line-height: 1.5;
+    vertical-align: middle;
+}
+
+.supplier-debt-modal tbody tr:hover {
+    background: #f8fbff;
+}
+
+.supplier-debt-modal th:nth-child(1) {
+    width: 105px;
+}
+
+.supplier-debt-modal th:nth-child(2) {
+    width: 120px;
+}
+
+.supplier-debt-modal th:nth-child(3),
+.supplier-debt-modal th:nth-child(4),
+.supplier-debt-modal th:nth-child(5) {
+    width: 175px;
+}
+
+.supplier-debt-modal th:nth-child(6) {
+    width: 115px;
+}
+
+.supplier-debt-modal th:nth-child(7) {
+    width: 165px;
+}
+
+.supplier-debt-modal th:nth-child(8) {
+    width: 245px;
+}
+
+.supplier-debt-modal th:nth-child(9) {
+    width: 90px;
+}
+
+.debt-purple,
+.debt-green,
+.debt-red {
+    text-align: right;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+}
+
+.debt-status {
+    padding: 6px 10px;
+    border-radius: 14px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.debt-row-actions {
+    align-items: center;
+    gap: 5px;
+}
+
+.debt-row-actions .ui-icon-button {
+    width: 31px;
+    height: 31px;
+}
+
+.supplier-debt-modal > footer {
+    min-height: 60px;
+    padding: 12px 22px;
+    border-top: 1px solid #e7ebf1;
+    background: #fafbfd;
+    font-size: 12px;
+}
+
+.supplier-debt-modal > footer > button {
+    min-width: 90px;
+    padding: 10px 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+@media (max-width: 760px) {
+    .supplier-debt-modal {
+        width: calc(100vw - 14px);
+        max-height: calc(100vh - 14px);
+        border-radius: 12px;
+    }
+
+    .supplier-debt-modal > header {
+        padding: 16px;
+    }
+
+    .supplier-debt-modal h2 {
+        font-size: 17px;
+    }
+
+    .supplier-debt-tools {
+        grid-template-columns: 1fr;
+        padding: 13px;
+    }
+}

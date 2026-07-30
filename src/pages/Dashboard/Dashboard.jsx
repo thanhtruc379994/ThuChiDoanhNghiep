@@ -1,16 +1,6 @@
 import { useState } from 'react'
+import NotificationBell from '../../components/NotificationBell/NotificationBell'
 import './Dashboard.css'
-
-const navItems = [
-  ['⌂', 'Tổng quan'],
-  ['⇄', 'Giao dịch'],
-  ['◆', 'Dự án'],
-  ['▣', 'Tài khoản'],
-  ['◇', 'Danh mục'],
-  ['♟', 'Khách hàng'],
-  ['▰', 'Nhà cung cấp'],
-  ['♙', 'Nhân sự'],
-]
 
 const periods = ['Tháng này', 'Quý này', 'Năm nay', 'Tùy chỉnh']
 
@@ -110,11 +100,13 @@ function BarsChart() {
               className="blue"
               style={{ height: heightOf(m.revenue) }}
               data-tooltip={`${m.month} • Doanh thu: ${formatMoney(m.revenue)} VND`}
+              title={`${m.month} • Doanh thu: ${formatMoney(m.revenue)} VND`}
             />
             <i
               className="pink"
               style={{ height: heightOf(m.expense) }}
               data-tooltip={`${m.month} • Chi phí: ${formatMoney(m.expense)} VND`}
+              title={`${m.month} • Chi phí: ${formatMoney(m.expense)} VND`}
             />
           </div>
         ))}
@@ -129,12 +121,11 @@ function BarsChart() {
 function Donut({ income = false }) {
   const categories = income ? incomeCategories : expenseCategories
   const total = income ? INCOME_TOTAL : EXPENSE_TOTAL
+  const [hovered, setHovered] = useState(null)
 
-  let cursor = 0
-  const wedges = categories.map((cat) => {
-    const start = cursor
-    const end = cursor + cat.percent
-    cursor = end
+  const wedges = categories.map((cat, index) => {
+    const start = categories.slice(0, index).reduce((sum, item) => sum + item.percent, 0)
+    const end = start + cat.percent
     const anchor = polarPoint((start + end) / 2, 33)
     const amount = (total * cat.percent) / 100
     return {
@@ -156,14 +147,23 @@ function Donut({ income = false }) {
             className="donut-wedge"
             style={{ clipPath: `polygon(${w.clip})`, '--tx': w.tx, '--ty': w.ty }}
             data-tooltip={w.tooltip}
+            title={w.tooltip}
+            onMouseEnter={() => setHovered(w)}
+            onMouseLeave={() => setHovered(null)}
           />
         ))}
       </div>
       <div className="donut-legend">
         {categories.map((c, i) => (
-          <span key={c.label}><i className={`dot d${i}`} />{c.label}</span>
+          <span
+            key={c.label}
+            title={`${c.label}: ${c.percent}% • ${formatMoney((total * c.percent) / 100)} VND`}
+            onMouseEnter={() => setHovered({ ...c, tooltip: `${c.label}: ${c.percent}% • ${formatMoney((total * c.percent) / 100)} VND` })}
+            onMouseLeave={() => setHovered(null)}
+          ><i className={`dot d${i}`} />{c.label}</span>
         ))}
       </div>
+      {hovered && <div className="donut-tooltip"><strong>{hovered.label}</strong><span>{hovered.percent}%</span><b>{formatMoney((total * hovered.percent) / 100)} VND</b></div>}
     </div>
   )
 }
@@ -192,10 +192,10 @@ function DateRangePicker({ from, to, onFromChange, onToChange }) {
 
 function Dashboard() {
   const [period, setPeriod] = useState('Quý này')
-  const [collapsed, setCollapsed] = useState(false)
   const [toast, setToast] = useState('')
   const [dateFrom, setDateFrom] = useState('2026-04-30')
   const [dateTo, setDateTo] = useState('2026-05-15')
+  const [printing, setPrinting] = useState(false)
   const data = periodData[period]
   const isCustom = period === 'Tùy chỉnh'
 
@@ -211,29 +211,22 @@ function Dashboard() {
     }
   }
 
-  return (
-    <div className={`app ${collapsed ? 'collapsed' : ''}`}>
-      <aside className="sidebar">
-        <button className="collapse" onClick={() => setCollapsed(!collapsed)} aria-label="Thu gọn menu">‹</button>
-        <div className="brand">
-          <div className="bulb">💡</div>
-          <h1>QUẢN LÝ THU CHI<br />DOANH NGHIỆP</h1>
-        </div>
-        <nav>
-          {navItems.map(([icon, label], index) => (
-            <button key={label} className={index === 0 ? 'active' : ''} onClick={() => notify(`${label} đang được cập nhật`)}>
-              <b>{icon}</b><span>{label}</span>
-            </button>
-          ))}
-        </nav>
-        <div className="profile">
-          <div className="avatar">KF</div>
-          <div><strong>Kiên Fox | P.TGĐ</strong><span>Đổi mật khẩu</span></div>
-        </div>
-        <footer>Version 4.1<br />Thực hiện bởi © applus.vn</footer>
-      </aside>
+  const printReconciliation = () => {
+    setPrinting(true)
+    document.body.classList.add('printing-reconciliation')
+    const finishPrinting = () => {
+      document.body.classList.remove('printing-reconciliation')
+      setPrinting(false)
+    }
+    window.addEventListener('afterprint', finishPrinting, { once: true })
+    window.setTimeout(() => {
+      window.print()
+    }, 100)
+  }
 
-      <main>
+  return (
+    <>
+      <main className="dashboard-content">
         <header>
           <div>
             <span className="eyebrow">BẢNG ĐIỀU KHIỂN</span>
@@ -251,8 +244,8 @@ function Dashboard() {
                 onToChange={setDateTo}
               />
             )}
-            <button className="download" onClick={() => notify('Đã tạo bảng kê đối soát')}>⇩ Tải bảng kê đối soát</button>
-            <button className="bell" onClick={() => notify('Bạn có 23 thông báo mới')}>♟<sup>23</sup></button>
+            <button className="download" onClick={printReconciliation}>⇩ In bảng kê đối soát</button>
+            <NotificationBell className="bell" count={23} />
           </div>
         </header>
 
@@ -290,8 +283,21 @@ function Dashboard() {
           <article><h3>Doanh thu theo danh mục</h3><Donut income /></article>
         </section>
       </main>
+      {printing && (
+        <section className="reconciliation-print" aria-hidden="true">
+          <header><div><strong>THU CHI DOANH NGHIỆP</strong><h1>BẢNG KÊ ĐỐI SOÁT TÀI CHÍNH</h1></div><span>Ngày in: {new Date().toLocaleDateString('vi-VN')}</span></header>
+          <p className="reconciliation-print__period">Kỳ báo cáo: <b>{period}</b>{isCustom && ` (${formatVN(dateFrom)} - ${formatVN(dateTo)})`}</p>
+          <table><thead><tr><th>Chỉ tiêu</th><th>Số tiền (VND)</th><th>Ghi chú</th></tr></thead><tbody>
+            <tr><td>Doanh thu</td><td>{data.revenue}</td><td>Tổng nguồn tiền có</td></tr>
+            <tr><td>Chi phí</td><td>{data.expense}</td><td>Tổng nghĩa vụ nợ</td></tr>
+            <tr><td>Lợi nhuận</td><td>{data.profit}</td><td>Dòng tiền thuần</td></tr>
+            <tr><td>Tổng số dư tài khoản</td><td>{data.balance}</td><td>Tiền mặt và ngân hàng</td></tr>
+          </tbody></table>
+          <footer><span>Người lập bảng</span><span>Người duyệt</span></footer>
+        </section>
+      )}
       {toast && <div className="toast">{toast}</div>}
-    </div>
+    </>
   )
 }
 

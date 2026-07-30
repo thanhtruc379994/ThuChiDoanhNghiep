@@ -1,0 +1,341 @@
+.categories-page {
+    min-width: 0;
+    min-height: 100vh;
+    padding: 28px clamp(20px, 3vw, 42px) 45px;
+    color: #4e5662;
+    background: #f4f7fd;
+}
+
+.categories-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 27px;
+}
+
+.categories-header h2 {
+    margin: 0;
+    color: #0a3474;
+    font-size: clamp(25px, 2.25vw, 34px);
+}
+
+.categories-header > div {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.add-category {
+    height: 43px;
+    padding: 0 22px;
+    border: 0;
+    border-radius: 23px;
+    color: #fff;
+    background: #0b4b9c;
+    font-weight: 700;
+    box-shadow: 0 8px 18px rgba(18, 64, 132, .15);
+}
+
+.categories-bell {
+    position: relative;
+    width: 43px;
+    height: 43px;
+    border: 0;
+    border-radius: 50%;
+    color: #269b69;
+    background: #eaf6ef;
+    font-size: 20px;
+}
+
+.categories-bell sup {
+    position: absolute;
+    top: -7px;
+    right: -3px;
+    padding: 3px 6px;
+    border-radius: 12px;
+    color: #fff;
+    background: #d4414e;
+    font-size: 9px;
+}
+
+.category-section {
+    margin-bottom: 31px;
+}
+
+.category-tabs {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid #dfe5ed;
+}
+
+.category-tabs > button {
+    padding: 11px 19px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    color: #555e69;
+    background: transparent;
+    font-weight: 600;
+}
+
+.category-tabs > button.active {
+    color: #174f91;
+    border-bottom-color: #2866ac;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px 18px;
+}
+
+.category-card {
+    min-width: 0;
+    min-height: 76px;
+    display: grid;
+    grid-template-columns: 45px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 11px;
+    padding: 12px;
+    border-radius: 13px;
+    background: #fff;
+    box-shadow: 0 7px 22px rgba(20, 58, 108, .065);
+}
+
+.category-card__icon {
+    width: 43px;
+    height: 43px;
+    display: grid;
+    place-items: center;
+    border-radius: 9px;
+    color: #174876;
+    background: #72a5df;
+    box-shadow: inset 0 -4px rgba(15, 54, 104, .1);
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.category-card__name {
+    min-width: 0;
+}
+
+.category-card h3 {
+    margin: 0;
+    overflow: hidden;
+    color: #444c57;
+    font-size: 13px;
+    font-weight: 600;
+    text-overflow: ellipsis;
+}
+
+.category-card p {
+    margin: 4px 0 0;
+    color: #9ba1aa;
+    font-size: 10px;
+}
+
+.category-card em {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 2px 7px;
+    border-radius: 9px;
+    color: #775d08;
+    background: #f8d94e;
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.category-card__actions {
+    display: flex;
+    gap: 4px;
+}
+
+.category-card__actions .ui-icon-button {
+    width: 29px;
+    height: 29px;
+    background: transparent;
+}
+
+.category-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: grid;
+    place-items: center;
+    padding: 18px;
+    background: rgba(13, 22, 35, .54);
+    backdrop-filter: blur(1px);
+}
+
+.category-modal {
+    width: min(520px, calc(100vw - 28px));
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 25px 65px rgba(4, 20, 44, .3);
+    overflow: hidden;
+}
+
+.category-modal > header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e6eaf0;
+}
+
+.category-modal h2 {
+    margin: 0;
+    color: #2868ac;
+    font-size: 19px;
+}
+
+.category-modal header button {
+    border: 0;
+    color: #66707b;
+    background: transparent;
+    font-size: 23px;
+}
+
+.category-modal form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px 18px;
+    padding: 20px;
+}
+
+.category-modal form > label:not(.internal-check) {
+    display: grid;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.category-modal label b {
+    color: #df4652;
+}
+
+.category-modal input, .category-modal select {
+    width: 100%;
+    height: 40px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 5px;
+    outline: 0;
+    background: #f5f7fa;
+}
+
+.category-modal fieldset {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 10px;
+    border: 1px solid #e6eaf0;
+    border-radius: 7px;
+}
+
+.category-modal legend {
+    padding: 0 5px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.category-icon-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.category-icon-picker button {
+    width: 34px;
+    height: 34px;
+    border: 1px solid #e2e7ee;
+    border-radius: 6px;
+    color: #2863a2;
+    background: #f8fafc;
+}
+
+.category-icon-picker button.selected {
+    color: #fff;
+    border-color: #2562a7;
+    background: #2562a7;
+}
+
+.internal-check {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+}
+
+.internal-check input {
+    width: 16px;
+    height: 16px;
+}
+
+.category-modal footer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.category-modal footer button {
+    padding: 9px 18px;
+    border: 0;
+    border-radius: 20px;
+    color: #68717c;
+    background: #f0f2f4;
+    font-weight: 700;
+}
+
+.category-modal footer button:last-child {
+    color: #fff;
+    background: #1761af;
+}
+
+.category-toast {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    z-index: 70;
+    padding: 12px 18px;
+    border-radius: 9px;
+    color: #fff;
+    background: #103767;
+    box-shadow: 0 9px 25px rgba(11, 42, 82, .25);
+    font-size: 12px;
+}
+
+@media (max-width: 1200px) {
+    .category-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 760px) {
+    .categories-page {
+        padding: 22px 14px 85px;
+    }
+
+    .categories-bell {
+        display: none;
+    }
+
+    .add-category {
+        padding: 0 13px;
+    }
+
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .category-modal form {
+        grid-template-columns: 1fr;
+    }
+
+    .category-modal fieldset, .internal-check, .category-modal footer {
+        grid-column: 1;
+    }
+}
