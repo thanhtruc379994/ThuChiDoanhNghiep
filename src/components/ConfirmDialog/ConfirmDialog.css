@@ -1,0 +1,11 @@
+.confirm-overlay { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 18px; background: rgba(13, 22, 35, .52); backdrop-filter: blur(1px); }
+.confirm-dialog { position: relative; width: min(390px, calc(100vw - 28px)); padding: 27px 28px 23px; border-radius: 16px; color: #555e6a; background: #fff; box-shadow: 0 24px 65px rgba(4, 19, 42, .3); text-align: center; animation: confirm-in .17s ease-out; }
+.confirm-dialog__close { position: absolute; top: 9px; right: 12px; border: 0; color: #8a929c; background: transparent; font-size: 23px; }
+.confirm-dialog__icon { width: 54px; height: 54px; display: grid; place-items: center; margin: 0 auto 13px; border-radius: 50%; color: #df4b56; background: #fff0f1; }
+.confirm-dialog__icon svg { width: 27px; height: 27px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.confirm-dialog h2 { margin: 0; color: #2f3945; font-size: 19px; }
+.confirm-dialog p { margin: 10px 0 21px; color: #7a828d; font-size: 12px; line-height: 1.55; }
+.confirm-dialog footer { display: flex; justify-content: center; gap: 10px; }
+.confirm-dialog footer button { min-width: 82px; padding: 9px 16px; border: 0; border-radius: 20px; color: #66707b; background: #f0f2f5; font-weight: 700; }
+.confirm-dialog footer button:last-child { color: #fff; background: #dc4652; }
+@keyframes confirm-in { from { opacity: 0; transform: scale(.96) translateY(5px); } }

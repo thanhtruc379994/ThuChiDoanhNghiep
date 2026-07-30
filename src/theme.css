@@ -1,0 +1,526 @@
+/*
+ * Original visual system for the finance workspace.
+ * Loaded last so every module shares one layout, surface and control language.
+ */
+:root {
+  --ink: #1a1e26;
+  --ink-soft: #303845;
+  --ink-deep: #10131a;
+  --gold: #d3ad5f;
+  --gold-light: #e9c97c;
+  --gold-deep: #ad8337;
+  --gold-soft: #f8f0e2;
+  --gold-hover: #e2bf75;
+  --canvas: #faf9f6;
+  --paper: #ffffff;
+  --on-ink: #ffffff;
+  --gold-text-light: #f4e4be;
+  --ink-muted-light: #c8ced8;
+  --line: #e7e0d4;
+  --field-line: #d8d1c5;
+  --control-line: #d9d1c3;
+  --surface-hover: #fcf8ef;
+  --muted: #5b6470;
+  --success: #247a57;
+  --warning: #b7791f;
+  --error: #c0392b;
+  --accent: var(--gold);
+  --accent-dark: var(--gold-deep);
+  --teal: var(--success);
+  --nav: var(--ink);
+  --shadow: 0 8px 24px rgba(16, 19, 26, .055);
+}
+
+body { color: var(--ink); background: var(--canvas); }
+
+.sidebar {
+  color: var(--ink-soft);
+  background: var(--paper);
+  border-right: 1px solid var(--line);
+  box-shadow: none;
+}
+
+.sidebar__toggle { color: var(--ink); border-color: var(--line); }
+.sidebar__brand { border-bottom-color: var(--line); }
+.sidebar__brand h1 { color: var(--ink); }
+.sidebar__brand p { color: var(--muted); }
+.sidebar__bulb,
+.sidebar__mark,
+.sidebar__avatar {
+  color: var(--on-ink);
+  background: var(--gold);
+  box-shadow: none;
+}
+.sidebar__nav button {
+  margin: 0;
+  width: 100%;
+  border-left: 0;
+  border-radius: 9px;
+  color: var(--ink-soft);
+}
+.sidebar__nav button:hover { color: var(--ink); background: var(--gold-soft); }
+.sidebar__nav button.is-active {
+  color: var(--on-ink);
+  border-left-color: transparent;
+  background: var(--gold-deep);
+  box-shadow: 0 6px 15px rgba(173, 131, 55, .16);
+}
+.sidebar__nav button.is-active b {
+  color: var(--on-ink);
+  border-color: rgba(255, 255, 255, .35);
+  background: transparent;
+}
+.sidebar__profile {
+  color: var(--ink-soft);
+  border-color: var(--line);
+  background: var(--gold-soft);
+}
+
+.app {
+  grid-template-columns: 232px minmax(0, 1fr);
+  color: var(--ink);
+  background: var(--canvas);
+}
+
+.app.is-collapsed { grid-template-columns: 76px minmax(0, 1fr); }
+
+/* Page canvas and titles */
+.content,
+.dashboard-content,
+.projects-page,
+.accounts-page,
+.categories-page,
+.customers-page,
+.suppliers-page,
+.employees-page {
+  padding: 34px clamp(22px, 3.2vw, 54px) 54px;
+  color: var(--ink);
+  background: transparent;
+}
+
+.page-header,
+.dashboard-content > header,
+.projects-header,
+.accounts-header,
+.categories-header,
+.customers-header,
+.suppliers-header,
+.employees-header {
+  min-height: 72px;
+  margin-bottom: 30px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(231, 224, 212, .75);
+}
+
+.page-header h2,
+.dashboard-content > header h2,
+.projects-header h2,
+.accounts-header h2,
+.categories-header h2,
+.customers-header h2,
+.suppliers-header h2,
+.employees-header h2 {
+  color: var(--ink);
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  font-size: clamp(27px, 2.35vw, 36px);
+  font-weight: 600 !important;
+  letter-spacing: -.65px;
+}
+
+.eyebrow {
+  color: var(--accent) !important;
+  letter-spacing: 2.4px !important;
+}
+
+/* Dashboard palette */
+.dashboard-content .kpi {
+  border: 1px solid rgba(255, 255, 255, .2);
+  box-shadow: 0 12px 26px rgba(16, 19, 26, .1);
+}
+
+.dashboard-content .kpi.revenue {
+  background: linear-gradient(135deg, #087f8c, #20b8a6);
+}
+
+.dashboard-content .kpi.expense {
+  background: linear-gradient(135deg, #e0526f, #ff8290);
+}
+
+.dashboard-content .kpi.profit {
+  background: linear-gradient(135deg, #5d62d9, #8d7cf2);
+}
+
+.dashboard-content .kpi.balance {
+  background: linear-gradient(135deg, #e29518, #f4c04d);
+}
+
+.dashboard-content .kpi em {
+  background: rgba(159, 35, 56, .78);
+}
+
+.dashboard-content .metric {
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--gold-deep);
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.dashboard-content .metric.red {
+  border-left-color: #ed5c73;
+}
+
+.dashboard-content .metric.yellow {
+  border-left-color: #e9a823;
+}
+
+.dashboard-content .metric.green {
+  border-left-color: #16a886;
+}
+
+.dashboard-content .metric > div {
+  border-top-color: var(--line);
+}
+
+.dashboard-content .metric.red strong,
+.dashboard-content .metric.red .icon {
+  color: #df405d;
+}
+
+.dashboard-content .metric.yellow strong,
+.dashboard-content .metric.yellow .icon,
+.dashboard-content .metric.yellow p {
+  color: #c98908;
+}
+
+.dashboard-content .metric.green strong,
+.dashboard-content .metric.green p,
+.dashboard-content .metric.green .icon {
+  color: #078c70;
+}
+
+.dashboard-content .metric .icon {
+  background: #f4f1ff;
+}
+
+.dashboard-content .charts article {
+  border: 1px solid var(--line);
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.dashboard-content .charts h3 {
+  color: var(--ink);
+}
+
+.dashboard-content .blue {
+  background: #20a99b;
+}
+
+.dashboard-content .pink {
+  background: #f06b83;
+}
+
+.dashboard-content .donut {
+  background: conic-gradient(
+    #f0b83f 0 82%,
+    #26b993 82% 91%,
+    #7968e8 91% 96%,
+    #f27668 96%
+  );
+}
+
+.dashboard-content .donut.income {
+  background: conic-gradient(
+    #f0b83f 0 94%,
+    #7968e8 94% 98%,
+    #26b993 98%
+  );
+}
+
+.dashboard-content .dot {
+  background: #f0b83f;
+}
+
+.dashboard-content .dot.d1 {
+  background: #7968e8;
+}
+
+.dashboard-content .dot.d2 {
+  background: #26b993;
+}
+
+.dashboard-content .dot.d3 {
+  background: #f27668;
+}
+
+/* Controls */
+.action,
+.download,
+.add-project,
+.add-account,
+.add-category,
+.add-customer,
+.add-supplier,
+.add-employee,
+.export-customers,
+.export-suppliers {
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1px solid var(--gold-deep);
+  border-radius: 9px;
+  color: var(--on-ink);
+  background: var(--gold-deep);
+  box-shadow: 0 6px 15px rgba(173, 131, 55, .14);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  transition: transform .15s, box-shadow .15s, background .15s;
+}
+
+.action:hover,
+.download:hover,
+.add-project:hover,
+.add-account:hover,
+.add-category:hover,
+.add-customer:hover,
+.add-supplier:hover,
+.add-employee:hover,
+.export-customers:hover,
+.export-suppliers:hover {
+  transform: translateY(-1px);
+  color: var(--ink);
+  background: var(--gold-hover);
+  box-shadow: 0 8px 18px rgba(173, 131, 55, .18);
+}
+
+.action--green,
+.export-customers,
+.export-suppliers { border-color: var(--teal); background: var(--teal); }
+.action--orange { border-color: var(--accent); background: var(--accent); }
+.action--purple,
+.action--blue { border-color: var(--gold-deep); background: var(--gold-deep); }
+
+.notification,
+.projects-notification,
+.accounts-bell,
+.categories-bell,
+.customers-bell,
+.suppliers-bell,
+.employees-bell,
+.bell {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  color: var(--teal);
+  background: var(--paper);
+}
+
+button sup {
+  border: 2px solid var(--canvas);
+  background: var(--accent) !important;
+}
+
+/* Filters are tool strips rather than floating cards */
+.filters,
+.project-filters,
+.supplier-summary,
+.customer-summary,
+.detail-filter-panel {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 253, 249, .9);
+  box-shadow: 0 4px 16px rgba(16, 19, 26, .035);
+}
+
+.periods {
+  gap: 5px;
+  padding: 4px;
+  border-radius: 8px;
+  background: var(--gold-soft);
+}
+
+.periods button,
+.category-tabs > button {
+  border-radius: 6px;
+  color: #596370;
+}
+
+.periods button.selected,
+.periods button.is-selected,
+.category-tabs > button.active {
+  color: #fff;
+  border-color: var(--ink);
+  background: var(--ink);
+}
+
+.search,
+.project-filters label,
+.supplier-summary label,
+.customer-summary label,
+.detail-search,
+.date-range {
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--canvas);
+}
+
+input,
+select,
+textarea { accent-color: var(--accent); }
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid rgba(211, 173, 95, .28) !important;
+  outline-offset: 1px;
+}
+
+/* Cards: squared editorial surfaces with an accent edge */
+.summary-card,
+.kpi,
+.metric,
+.charts > article,
+.category-card,
+.account-card,
+.projects-table-card,
+.customer-table-card,
+.employees-table-card {
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.summary-card,
+.kpi,
+.metric,
+.category-card,
+.account-card { position: relative; overflow: hidden; }
+
+.summary-card::before,
+.kpi::before,
+.metric::before,
+.category-card::before,
+.account-card::before {
+  content: none;
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--gold);
+}
+
+.summary-card { min-height: 190px; border-width: 1px; border-color: var(--line) !important; }
+.summary-card:hover,
+.account-card:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(43, 37, 30, .11); }
+
+.category-card__icon,
+.account-icon {
+  border-radius: 50%;
+  color: #fff;
+  background: var(--teal) !important;
+  box-shadow: none;
+}
+
+.kpi-grid,
+.metric-grid,
+.charts,
+.summary-grid,
+.category-grid,
+.account-grid { gap: 18px !important; }
+
+/* Tables */
+.projects-table-card,
+.customer-table-card,
+.employees-table-card {
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+}
+
+table thead,
+.employees-table th { background: var(--gold-soft); }
+
+table th {
+  color: #394452 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: .55px;
+  text-transform: uppercase;
+}
+
+table th,
+table td { border-bottom-color: var(--line) !important; }
+table tbody tr { background: var(--paper); }
+table tbody tr:nth-child(even) { background: #fdfcf9; }
+table tbody tr:hover { background: var(--surface-hover); }
+
+.pagination button,
+.project-pagination button,
+.customer-pages button,
+.supplier-pages button {
+  border-radius: 7px;
+  border-color: var(--line) !important;
+  color: var(--muted);
+  background: var(--paper) !important;
+}
+
+.pagination button.is-current,
+.project-pagination button.active,
+.customer-pages button.active,
+.supplier-pages button.active {
+  border-color: var(--accent) !important;
+  color: var(--ink-deep);
+  background: var(--accent) !important;
+}
+
+/* Status and feedback */
+.employee-role,
+.full-access { border-radius: 5px; }
+.employee-role--admin,
+.full-access,
+.permission-head { background: var(--teal); }
+
+.toast,
+[class$="-toast"] {
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 8px;
+  background: var(--nav) !important;
+  box-shadow: 5px 5px 0 rgba(211, 173, 95, .5) !important;
+}
+
+@media (max-width: 1050px) {
+  .app,
+  .app.is-collapsed { grid-template-columns: 76px minmax(0, 1fr); }
+  .sidebar__brand-copy,
+  .sidebar__nav span,
+  .sidebar__profile-info,
+  .sidebar__logout,
+  .sidebar footer { display: none; }
+  .sidebar__brand,
+  .sidebar__nav button,
+  .sidebar__profile { justify-content: center; }
+  .sidebar__nav button { padding: 0; }
+}
+
+@media (max-width: 760px) {
+  .app,
+  .app.is-collapsed { display: block; }
+  .content,
+  .dashboard-content,
+  .projects-page,
+  .accounts-page,
+  .categories-page,
+  .customers-page,
+  .suppliers-page,
+  .employees-page { padding: 22px 14px 88px; }
+  .page-header,
+  .dashboard-content > header,
+  .projects-header,
+  .accounts-header,
+  .categories-header,
+  .customers-header,
+  .suppliers-header,
+  .employees-header { min-height: auto; }
+}
