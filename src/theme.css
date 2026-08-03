@@ -33,6 +33,136 @@
 
 body { color: var(--ink); background: var(--canvas); }
 
+/* Material-compatible treatment for legacy feature markup. */
+button:not(.MuiButtonBase-root) {
+  min-height: 40px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+input:not([type="checkbox"]):not([type="file"]):not(.MuiInputBase-input),
+select,
+textarea {
+  min-height: 40px;
+  box-sizing: border-box;
+  border: 1px solid #d5d9e0;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+input:not([type="checkbox"]):not([type="file"]):not(.MuiInputBase-input):focus,
+select:focus,
+textarea:focus {
+  border-color: var(--gold-deep) !important;
+  box-shadow: 0 0 0 3px rgba(173, 131, 55, .12);
+}
+
+.MuiCheckbox-root input.PrivateSwitchBase-input {
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+  appearance: none !important;
+  pointer-events: auto;
+}
+
+.MuiTextField-root .MuiOutlinedInput-root { min-height: 42px; }
+
+/* Search focus uses a neutral outline instead of the gold brand accent. */
+.search .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
+.detail-search .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
+.project-filters .MuiTextField-root .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
+.supplier-summary .MuiTextField-root .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
+.customer-summary .MuiTextField-root .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
+.supplier-debt-tools .MuiTextField-root .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #c7ccd4 !important;
+  border-width: 1px !important;
+}
+
+/* Search fields own their outline; remove the old wrapper outline/icon spacing. */
+.search:has(.MuiTextField-root),
+.detail-search:has(.MuiTextField-root),
+.project-filters label:has(.MuiTextField-root),
+.supplier-summary label:has(.MuiTextField-root),
+.customer-summary label:has(.MuiTextField-root),
+.supplier-debt-tools label:has(.MuiTextField-root) {
+  width: 100%;
+  min-width: 0;
+  height: auto !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+table { border-collapse: collapse; }
+table thead { background: #f8f5ee; }
+table tbody tr { transition: background-color .15s ease; }
+
+.account-overlay,
+.category-overlay,
+.customer-overlay,
+.employee-overlay,
+.project-overlay,
+.supplier-overlay,
+.modal-backdrop,
+.notification-panel-overlay {
+  background: rgba(16, 24, 40, .48) !important;
+  backdrop-filter: blur(2px);
+}
+
+/* Permanent MUI drawers use z-index 1200; legacy popups must sit above them. */
+.account-overlay,
+.account-transaction-edit-overlay,
+.category-overlay,
+.customer-overlay,
+.employee-overlay,
+.project-overlay,
+.supplier-overlay,
+.modal-backdrop,
+.voucher-config-backdrop,
+.disbursement-overlay,
+.attachment-overlay,
+.notification-panel-overlay {
+  z-index: 1250 !important;
+}
+
+.account-form-modal,
+.account-details,
+.account-transaction-edit,
+.category-modal,
+.customer-modal,
+.debt-modal,
+.employee-modal,
+.project-modal,
+.supplier-modal,
+.supplier-payment,
+.transaction-modal,
+.voucher-config-modal,
+.disbursement-modal,
+.attachment-modal {
+  max-width: calc(100vw - 32px) !important;
+  max-height: calc(100vh - 32px) !important;
+}
+
+.account-form-modal,
+.category-form-modal,
+.customer-form-modal,
+.employee-form-modal,
+.project-form-modal,
+.supplier-form-modal,
+.transaction-modal,
+.invoice-modal,
+.notification-panel {
+  border: 1px solid #e5e7eb !important;
+  border-radius: 12px !important;
+  box-shadow: 0 24px 56px rgba(16, 24, 40, .18) !important;
+}
+
 .sidebar {
   color: var(--ink-soft);
   background: var(--paper);

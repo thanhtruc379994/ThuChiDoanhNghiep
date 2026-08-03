@@ -1,4 +1,5 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
+import { Button, Footer, Header, Input, Label, Main, Section, Select, Table, TableBody, TableDataCell, TableHead, TableHeaderCell, TableRow } from '../../components/MaterialPrimitives/MaterialPrimitives'
 import useIndexedDbState from '../../hooks/useIndexedDbState'
 import ActionIcon from '../../components/ActionIcon/ActionIcon'
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
@@ -50,18 +51,18 @@ function EmployeeForm({ employee, onClose, onSave }) {
 
   return (
     <div className="employee-overlay" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-      <section className="employee-modal" role="dialog" aria-modal="true">
-        <header><h2>{employee ? 'Chỉnh sửa nhân sự' : 'Thêm nhân sự'}</h2><button type="button" onClick={onClose}>×</button></header>
+      <Section className="employee-modal" role="dialog" aria-modal="true">
+        <Header><h2>{employee ? 'Chỉnh sửa nhân sự' : 'Thêm nhân sự'}</h2><Button type="button" onClick={onClose}>×</Button></Header>
         <form onSubmit={submit}>
           <div className="employee-fields">
-            <label><span>Tên hiển thị: <b>*</b></span><input required name="displayName" defaultValue={employee?.displayName} placeholder="Nhập tên hiển thị" /></label>
-            <label><span>Tên đăng nhập: <b>*</b></span><input required name="username" defaultValue={employee?.username} placeholder="Nhập tên đăng nhập" /></label>
-            <label><span>Email đăng nhập: <b>*</b></span><input required type="email" name="email" defaultValue={employee?.email} placeholder="user@gmail.com" /></label>
-            <label><span>Mật khẩu: {!employee && <b>*</b>}</span><input required={!employee} type="password" name="password" defaultValue={employee?.password} placeholder={employee ? 'Để trống nếu không thay đổi' : 'Nhập mật khẩu'} /></label>
-            <label><span>Quyền: <b>*</b></span><select value={role} onChange={(event) => setRole(event.target.value)}><option>Admin</option><option>User</option></select></label>
+            <Label><span>Tên hiển thị: <b>*</b></span><Input required name="displayName" defaultValue={employee?.displayName} placeholder="Nhập tên hiển thị" /></Label>
+            <Label><span>Tên đăng nhập: <b>*</b></span><Input required name="username" defaultValue={employee?.username} placeholder="Nhập tên đăng nhập" /></Label>
+            <Label><span>Email đăng nhập: <b>*</b></span><Input required type="email" name="email" defaultValue={employee?.email} placeholder="user@gmail.com" /></Label>
+            <Label><span>Mật khẩu: {!employee && <b>*</b>}</span><Input required={!employee} type="password" name="password" defaultValue={employee?.password} placeholder={employee ? 'Để trống nếu không thay đổi' : 'Nhập mật khẩu'} /></Label>
+            <Label><span>Quyền: <b>*</b></span><Select value={role} onChange={(event) => setRole(event.target.value)}><option>Admin</option><option>User</option></Select></Label>
           </div>
 
-          <section className={`permission-section ${role === 'Admin' ? 'disabled' : ''}`}>
+          <Section className={`permission-section ${role === 'Admin' ? 'disabled' : ''}`}>
             <div className="permission-title"><strong>Phân quyền chi tiết:</strong>{role === 'Admin' && <span>Admin được cấp toàn quyền</span>}</div>
             <div className="permission-table">
               <div className="permission-head"><span>Chức năng</span><span>Xem</span><span>Thêm</span><span>Sửa</span><span>Xóa</span></div>
@@ -70,14 +71,14 @@ function EmployeeForm({ employee, onClose, onSave }) {
                   <strong>{module}</strong>
                   {actions.map((action) => module === 'Tổng quan' && action !== 'view'
                     ? <span key={action}>–</span>
-                    : <label key={action}><input type="checkbox" disabled={role === 'Admin'} checked={role === 'Admin' || permissions[module][action]} onChange={() => toggle(module, action)} /></label>)}
+                    : <Label key={action}><Input type="checkbox" disabled={role === 'Admin'} checked={role === 'Admin' || permissions[module][action]} onChange={() => toggle(module, action)} /></Label>)}
                 </div>
               ))}
             </div>
-          </section>
-          <footer><button type="button" onClick={onClose}>Hủy</button><button type="submit">Lưu</button></footer>
+          </Section>
+          <Footer><Button type="button" onClick={onClose}>Hủy</Button><Button type="submit">Lưu</Button></Footer>
         </form>
-      </section>
+      </Section>
     </div>
   )
 }
@@ -97,16 +98,18 @@ export default function Employees() {
   }
 
   return (
-    <main className="employees-page">
-      <header className="employees-header"><h2>Quản lý nhân sự</h2><div><button className="add-employee" onClick={() => { setEditing(undefined); setFormOpen(true) }}>＋ Thêm nhân sự</button><NotificationBell className="employees-bell" count={15} /></div></header>
-      <section className="employees-table-card">
-        <div className="employees-table-scroll"><table className="employees-table"><thead><tr><th>Tên hiển thị</th><th>Tên đăng nhập</th><th>Quyền</th><th>Phân quyền chi tiết</th><th>Thao tác</th></tr></thead>
-          <tbody>{employees.map((employee) => <tr key={employee.id}><td>{employee.displayName}</td><td>{employee.username}</td><td><span className={`employee-role employee-role--${employee.role.toLowerCase()}`}>{employee.role}</span></td><td>{employee.role === 'Admin' ? <span className="full-access">Toàn quyền</span> : permissionsText(employee)}</td><td className="employee-actions"><ActionIcon icon="edit" label="Chỉnh sửa nhân sự" onClick={() => { setEditing(employee); setFormOpen(true) }} /><ActionIcon icon="trash" tone="red" label="Xóa nhân sự" onClick={() => setPendingDelete(employee)} /></td></tr>)}</tbody>
-        </table></div>
-      </section>
+    <Main className="employees-page">
+      <Header className="employees-header"><h2>Quản lý nhân sự</h2><div><Button className="add-employee" onClick={() => { setEditing(undefined); setFormOpen(true) }}>＋ Thêm nhân sự</Button><NotificationBell className="employees-bell" count={15} /></div></Header>
+      <Section className="employees-table-card">
+        <div className="employees-table-scroll"><Table className="employees-table"><TableHead><TableRow><TableHeaderCell>Tên hiển thị</TableHeaderCell><TableHeaderCell>Tên đăng nhập</TableHeaderCell><TableHeaderCell>Quyền</TableHeaderCell><TableHeaderCell>Phân quyền chi tiết</TableHeaderCell><TableHeaderCell>Thao tác</TableHeaderCell></TableRow></TableHead>
+          <TableBody>{employees.map((employee) => <TableRow key={employee.id}><TableDataCell>{employee.displayName}</TableDataCell><TableDataCell>{employee.username}</TableDataCell><TableDataCell><span className={`employee-role employee-role--${employee.role.toLowerCase()}`}>{employee.role}</span></TableDataCell><TableDataCell>{employee.role === 'Admin' ? <span className="full-access">Toàn quyền</span> : permissionsText(employee)}</TableDataCell><TableDataCell className="employee-actions"><ActionIcon icon="edit" label="Chỉnh sửa nhân sự" onClick={() => { setEditing(employee); setFormOpen(true) }} /><ActionIcon icon="trash" tone="red" label="Xóa nhân sự" onClick={() => setPendingDelete(employee)} /></TableDataCell></TableRow>)}</TableBody>
+        </Table></div>
+      </Section>
       {formOpen && <EmployeeForm employee={editing} onClose={() => setFormOpen(false)} onSave={save} />}
       {pendingDelete && <ConfirmDialog message={`Bạn có chắc muốn xóa nhân sự “${pendingDelete.displayName}”? Tài khoản này sẽ không thể đăng nhập.`} onCancel={() => setPendingDelete(undefined)} onConfirm={() => { setEmployees(employees.filter((item) => item.id !== pendingDelete.id)); setPendingDelete(undefined); notify('Đã xóa nhân sự') }} />}
       {toast && <div className="employee-toast">{toast}</div>}
-    </main>
+    </Main>
   )
 }
+
+

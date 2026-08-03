@@ -1,4 +1,5 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
+import { Article, Button, Footer, Header, Input, Main, Section, Table, TableBody, TableDataCell, TableHead, TableHeaderCell, TableRow } from '../../components/MaterialPrimitives/MaterialPrimitives'
 import NotificationBell from '../../components/NotificationBell/NotificationBell'
 import './Dashboard.css'
 
@@ -75,14 +76,14 @@ function Icon({ children }) {
 
 function KpiCard({ type, icon, title, value, children }) {
   return (
-    <article className={`kpi ${type}`}>
+    <Article className={`kpi ${type}`}>
       <Icon>{icon}</Icon>
       <div>
         <span>{title}</span>
         <strong>{value} <small>VND</small></strong>
         <p>{children}</p>
       </div>
-    </article>
+    </Article>
   )
 }
 
@@ -172,14 +173,14 @@ function Donut({ income = false }) {
 function DateRangePicker({ from, to, onFromChange, onToChange }) {
   return (
     <div className="date-range">
-      <input
+      <Input
         type="date"
         value={from}
         onChange={(e) => onFromChange(e.target.value)}
         aria-label="Từ ngày"
       />
       <span className="date-range-sep">đến</span>
-      <input
+      <Input
         type="date"
         value={to}
         min={from || undefined}
@@ -226,15 +227,15 @@ function Dashboard() {
 
   return (
     <>
-      <main className="dashboard-content">
-        <header>
+      <Main className="dashboard-content">
+        <Header>
           <div>
             <span className="eyebrow">BẢNG ĐIỀU KHIỂN</span>
             <h2>Tổng quan tài chính</h2>
           </div>
           <div className="header-actions">
             <div className="periods">
-              {periods.map((item) => <button key={item} className={period === item ? 'selected' : ''} onClick={() => handlePeriodClick(item)}>{item}</button>)}
+              {periods.map((item) => <Button key={item} className={period === item ? 'selected' : ''} onClick={() => handlePeriodClick(item)}>{item}</Button>)}
             </div>
             {isCustom && (
               <DateRangePicker
@@ -244,57 +245,57 @@ function Dashboard() {
                 onToChange={setDateTo}
               />
             )}
-            <button className="download" onClick={printReconciliation}>⇩ In bảng kê đối soát</button>
+            <Button className="download" onClick={printReconciliation}>⇩ In bảng kê đối soát</Button>
             <NotificationBell className="bell" count={23} />
           </div>
-        </header>
+        </Header>
 
-        <section className="kpi-grid">
+        <Section className="kpi-grid">
           <KpiCard type="revenue" icon="▤" title="Doanh thu" value={data.revenue}>Tổng nguồn tiền có: <b>32.125.290.377 VND</b></KpiCard>
           <KpiCard type="expense" icon="🛒" title="Chi phí" value={data.expense}>Tổng nghĩa vụ nợ: <b>24.644.552.605 VND</b></KpiCard>
           <KpiCard type="profit" icon="⌁" title="Lợi nhuận" value={data.profit}>Dòng tiền thuần: <em>▲ -492.485.343 VND</em></KpiCard>
           <KpiCard type="balance" icon="♣" title="Tổng số dư tài khoản" value={data.balance}>(Tiền mặt &amp; Ngân hàng)</KpiCard>
-        </section>
+        </Section>
 
-        <section className="metric-grid">
-          <article className="metric red">
+        <Section className="metric-grid">
+          <Article className="metric red">
             <h3><Icon>◉</Icon> NET BURN RATE <span>(HAO HỤT RÒNG)</span></h3>
             <strong>342.016.475 VND</strong>
             <p>Công ty đang hao hụt tiền mặt mỗi tháng</p>
             <div>Gross Burn (Tổng chi): <b>1.240.110.923 VND/th</b></div>
-          </article>
-          <article className="metric yellow">
+          </Article>
+          <Article className="metric yellow">
             <h3><Icon>✈</Icon> RUNWAY</h3>
             <strong>5.7 <small>tháng</small></strong>
             <p>Đường băng sinh tử</p>
             <div>Thời gian cạn tiền nếu duy trì tốc độ hiện tại</div>
-          </article>
-          <article className="metric green">
+          </Article>
+          <Article className="metric green">
             <h3><Icon>◔</Icon> THU HỒI NỢ</h3>
             <strong>328.4%</strong>
             <p>Tỷ lệ Thực thu / Doanh thu xuất</p>
             <div>Khả năng chuyển hóa hóa đơn thành tiền mặt</div>
-          </article>
-        </section>
+          </Article>
+        </Section>
 
-        <section className="charts">
-          <article><h3>Doanh thu - Chi phí theo tháng</h3><BarsChart /></article>
-          <article><h3>Chi phí theo danh mục</h3><Donut /></article>
-          <article><h3>Doanh thu theo danh mục</h3><Donut income /></article>
-        </section>
-      </main>
+        <Section className="charts">
+          <Article><h3>Doanh thu - Chi phí theo tháng</h3><BarsChart /></Article>
+          <Article><h3>Chi phí theo danh mục</h3><Donut /></Article>
+          <Article><h3>Doanh thu theo danh mục</h3><Donut income /></Article>
+        </Section>
+      </Main>
       {printing && (
-        <section className="reconciliation-print" aria-hidden="true">
-          <header><div><strong>THU CHI DOANH NGHIỆP</strong><h1>BẢNG KÊ ĐỐI SOÁT TÀI CHÍNH</h1></div><span>Ngày in: {new Date().toLocaleDateString('vi-VN')}</span></header>
+        <Section className="reconciliation-print" aria-hidden="true">
+          <Header><div><strong>THU CHI DOANH NGHIỆP</strong><h1>BẢNG KÊ ĐỐI SOÁT TÀI CHÍNH</h1></div><span>Ngày in: {new Date().toLocaleDateString('vi-VN')}</span></Header>
           <p className="reconciliation-print__period">Kỳ báo cáo: <b>{period}</b>{isCustom && ` (${formatVN(dateFrom)} - ${formatVN(dateTo)})`}</p>
-          <table><thead><tr><th>Chỉ tiêu</th><th>Số tiền (VND)</th><th>Ghi chú</th></tr></thead><tbody>
-            <tr><td>Doanh thu</td><td>{data.revenue}</td><td>Tổng nguồn tiền có</td></tr>
-            <tr><td>Chi phí</td><td>{data.expense}</td><td>Tổng nghĩa vụ nợ</td></tr>
-            <tr><td>Lợi nhuận</td><td>{data.profit}</td><td>Dòng tiền thuần</td></tr>
-            <tr><td>Tổng số dư tài khoản</td><td>{data.balance}</td><td>Tiền mặt và ngân hàng</td></tr>
-          </tbody></table>
-          <footer><span>Người lập bảng</span><span>Người duyệt</span></footer>
-        </section>
+          <Table><TableHead><TableRow><TableHeaderCell>Chỉ tiêu</TableHeaderCell><TableHeaderCell>Số tiền (VND)</TableHeaderCell><TableHeaderCell>Ghi chú</TableHeaderCell></TableRow></TableHead><TableBody>
+            <TableRow><TableDataCell>Doanh thu</TableDataCell><TableDataCell>{data.revenue}</TableDataCell><TableDataCell>Tổng nguồn tiền có</TableDataCell></TableRow>
+            <TableRow><TableDataCell>Chi phí</TableDataCell><TableDataCell>{data.expense}</TableDataCell><TableDataCell>Tổng nghĩa vụ nợ</TableDataCell></TableRow>
+            <TableRow><TableDataCell>Lợi nhuận</TableDataCell><TableDataCell>{data.profit}</TableDataCell><TableDataCell>Dòng tiền thuần</TableDataCell></TableRow>
+            <TableRow><TableDataCell>Tổng số dư tài khoản</TableDataCell><TableDataCell>{data.balance}</TableDataCell><TableDataCell>Tiền mặt và ngân hàng</TableDataCell></TableRow>
+          </TableBody></Table>
+          <Footer><span>Người lập bảng</span><span>Người duyệt</span></Footer>
+        </Section>
       )}
       {toast && <div className="toast">{toast}</div>}
     </>
@@ -302,3 +303,5 @@ function Dashboard() {
 }
 
 export default Dashboard
+
+

@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react'
+﻿import { useMemo, useState } from 'react'
+import { Button, Footer, Header, Input, Label, Main, Section, Table, TableBody, TableDataCell, TableHead, TableHeaderCell, TableRow, Textarea } from '../../components/MaterialPrimitives/MaterialPrimitives'
 import useIndexedDbState from '../../hooks/useIndexedDbState'
 import ActionIcon from '../../components/ActionIcon/ActionIcon'
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
@@ -26,19 +27,19 @@ function CustomerForm({ customer, onClose, onSave }) {
   }
   return (
     <div className="customer-overlay" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-      <section className="customer-modal" role="dialog" aria-modal="true">
-        <header><h2>{customer ? 'Sửa khách hàng' : 'Thêm khách hàng'}</h2><button type="button" onClick={onClose}>×</button></header>
+      <Section className="customer-modal" role="dialog" aria-modal="true">
+        <Header><h2>{customer ? 'Sửa khách hàng' : 'Thêm khách hàng'}</h2><Button type="button" onClick={onClose}>×</Button></Header>
         <form onSubmit={submit}>
-          <label className="customer-field customer-field--full">Tên khách hàng: <b>*</b><input required name="name" defaultValue={customer?.name} placeholder="Nhập tên khách hàng" /></label>
-          <label className="customer-field">Số điện thoại:<input name="phone" defaultValue={customer?.phone} /></label>
-          <label className="customer-field">Email:<input type="email" name="email" defaultValue={customer?.email} /></label>
-          <label className="customer-field">Mã số thuế:<input name="tax" defaultValue={customer?.tax} /></label>
-          <label className="customer-field">Người liên hệ:<input name="contact" defaultValue={customer?.contact} /></label>
-          <label className="customer-field customer-field--full">Địa chỉ:<textarea name="address" rows="3" defaultValue={customer?.address} /></label>
-          <label className="customer-field customer-field--full">Ghi chú:<textarea name="note" rows="3" defaultValue={customer?.note} /></label>
-          <footer><button type="button" onClick={onClose}>Hủy</button><button type="submit">Lưu khách hàng</button></footer>
+          <Label className="customer-field customer-field--full">Tên khách hàng: <b>*</b><Input required name="name" defaultValue={customer?.name} placeholder="Nhập tên khách hàng" /></Label>
+          <Label className="customer-field">Số điện thoại:<Input name="phone" defaultValue={customer?.phone} /></Label>
+          <Label className="customer-field">Email:<Input type="email" name="email" defaultValue={customer?.email} /></Label>
+          <Label className="customer-field">Mã số thuế:<Input name="tax" defaultValue={customer?.tax} /></Label>
+          <Label className="customer-field">Người liên hệ:<Input name="contact" defaultValue={customer?.contact} /></Label>
+          <Label className="customer-field customer-field--full">Địa chỉ:<Textarea name="address" rows="3" defaultValue={customer?.address} /></Label>
+          <Label className="customer-field customer-field--full">Ghi chú:<Textarea name="note" rows="3" defaultValue={customer?.note} /></Label>
+          <Footer><Button type="button" onClick={onClose}>Hủy</Button><Button type="submit">Lưu khách hàng</Button></Footer>
         </form>
-      </section>
+      </Section>
     </div>
   )
 }
@@ -51,10 +52,10 @@ function DebtForm({ customer, onClose, onSave }) {
   }
   return (
     <div className="customer-overlay" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-      <section className="debt-modal" role="dialog" aria-modal="true">
-        <header><h2>Thêm công nợ phải thu</h2><button onClick={onClose}>×</button></header>
-        <form onSubmit={submit}><p>{customer.name}</p><label>Số tiền: <b>*</b><input name="amount" type="number" required min="1" placeholder="Nhập số tiền" /></label><label>Nội dung:<textarea rows="3" placeholder="Nhập nội dung công nợ" /></label><footer><button type="button" onClick={onClose}>Hủy</button><button type="submit">Lưu công nợ</button></footer></form>
-      </section>
+      <Section className="debt-modal" role="dialog" aria-modal="true">
+        <Header><h2>Thêm công nợ phải thu</h2><Button onClick={onClose}>×</Button></Header>
+        <form onSubmit={submit}><p>{customer.name}</p><Label>Số tiền: <b>*</b><Input name="amount" type="number" required min="1" placeholder="Nhập số tiền" /></Label><Label>Nội dung:<Textarea rows="3" placeholder="Nhập nội dung công nợ" /></Label><Footer><Button type="button" onClick={onClose}>Hủy</Button><Button type="submit">Lưu công nợ</Button></Footer></form>
+      </Section>
     </div>
   )
 }
@@ -89,19 +90,21 @@ export default function Customers() {
   }
 
   return (
-    <main className="customers-page">
-      <header className="customers-header"><h2>Quản lý khách hàng</h2><div><button className="export-customers" onClick={exportExcel}>Xuất Excel</button><button className="add-customer" onClick={() => { setEditing(undefined); setFormOpen(true) }}>＋ Thêm khách hàng</button><NotificationBell className="customers-bell" count={23} /></div></header>
-      <section className="customer-summary"><label><span>⌕</span><input value={query} onChange={(event) => { setQuery(event.target.value); setPage(1) }} placeholder="Tìm kiếm khách hàng..." /></label><div><span>Tổng công nợ phải thu:</span><strong>{money(totalDebt)}</strong></div></section>
-      <section className="customer-table-card">
-        <div className="customer-table-scroll"><table className="customer-table"><thead><tr><th>Tên khách hàng</th><th>Số điện thoại</th><th>Email</th><th>Địa chỉ</th><th>Mã số thuế</th><th>Người liên hệ</th><th>Ghi chú</th><th>Thao tác</th></tr></thead>
-          <tbody>{visible.map((customer) => <tr key={customer.id}><td><button className="customer-name" onClick={() => { setEditing(customer); setFormOpen(true) }}>{customer.name}</button></td><td>{customer.phone}</td><td>{customer.email}</td><td className="customer-address">{customer.address}</td><td>{customer.tax}</td><td>{customer.contact}</td><td className="customer-note">{customer.note}</td><td className="customer-actions"><ActionIcon icon="add" tone="green" label="Thêm công nợ" onClick={() => setDebtCustomer(customer)} /><ActionIcon icon="edit" label="Sửa khách hàng" onClick={() => { setEditing(customer); setFormOpen(true) }} /><ActionIcon icon="trash" tone="red" label="Xóa khách hàng" onClick={() => setPendingDelete(customer)} /></td></tr>)}</tbody>
-        </table>{!visible.length && <div className="customers-empty">Không tìm thấy khách hàng phù hợp.</div>}</div>
-        <div className="customer-toolbar"><span>Hiển thị {visible.length ? (page - 1) * perPage + 1 : 0}-{Math.min(page * perPage, filtered.length)} của {filtered.length} khách hàng</span><div className="customer-pages"><button disabled={page === 1} onClick={() => setPage(page - 1)}>‹</button>{Array.from({ length: pageCount }, (_, index) => index + 1).map((item) => <button className={page === item ? 'active' : ''} key={item} onClick={() => setPage(item)}>{item}</button>)}<button disabled={page === pageCount} onClick={() => setPage(page + 1)}>›</button></div></div>
-      </section>
+    <Main className="customers-page">
+      <Header className="customers-header"><h2>Quản lý khách hàng</h2><div><Button className="export-customers" onClick={exportExcel}>Xuất Excel</Button><Button className="add-customer" onClick={() => { setEditing(undefined); setFormOpen(true) }}>＋ Thêm khách hàng</Button><NotificationBell className="customers-bell" count={23} /></div></Header>
+      <Section className="customer-summary"><Label><Input value={query} onChange={(event) => { setQuery(event.target.value); setPage(1) }} placeholder="Tìm kiếm khách hàng..." /></Label><div><span>Tổng công nợ phải thu:</span><strong>{money(totalDebt)}</strong></div></Section>
+      <Section className="customer-table-card">
+        <div className="customer-table-scroll"><Table className="customer-table"><TableHead><TableRow><TableHeaderCell>Tên khách hàng</TableHeaderCell><TableHeaderCell>Số điện thoại</TableHeaderCell><TableHeaderCell>Email</TableHeaderCell><TableHeaderCell>Địa chỉ</TableHeaderCell><TableHeaderCell>Mã số thuế</TableHeaderCell><TableHeaderCell>Người liên hệ</TableHeaderCell><TableHeaderCell>Ghi chú</TableHeaderCell><TableHeaderCell>Thao tác</TableHeaderCell></TableRow></TableHead>
+          <TableBody>{visible.map((customer) => <TableRow key={customer.id}><TableDataCell><Button className="customer-name" onClick={() => { setEditing(customer); setFormOpen(true) }}>{customer.name}</Button></TableDataCell><TableDataCell>{customer.phone}</TableDataCell><TableDataCell>{customer.email}</TableDataCell><TableDataCell className="customer-address">{customer.address}</TableDataCell><TableDataCell>{customer.tax}</TableDataCell><TableDataCell>{customer.contact}</TableDataCell><TableDataCell className="customer-note">{customer.note}</TableDataCell><TableDataCell className="customer-actions"><ActionIcon icon="add" tone="green" label="Thêm công nợ" onClick={() => setDebtCustomer(customer)} /><ActionIcon icon="edit" label="Sửa khách hàng" onClick={() => { setEditing(customer); setFormOpen(true) }} /><ActionIcon icon="trash" tone="red" label="Xóa khách hàng" onClick={() => setPendingDelete(customer)} /></TableDataCell></TableRow>)}</TableBody>
+        </Table>{!visible.length && <div className="customers-empty">Không tìm thấy khách hàng phù hợp.</div>}</div>
+        <div className="customer-toolbar"><span>Hiển thị {visible.length ? (page - 1) * perPage + 1 : 0}-{Math.min(page * perPage, filtered.length)} của {filtered.length} khách hàng</span><div className="customer-pages"><Button disabled={page === 1} onClick={() => setPage(page - 1)}>‹</Button>{Array.from({ length: pageCount }, (_, index) => index + 1).map((item) => <Button className={page === item ? 'active' : ''} key={item} onClick={() => setPage(item)}>{item}</Button>)}<Button disabled={page === pageCount} onClick={() => setPage(page + 1)}>›</Button></div></div>
+      </Section>
       {formOpen && <CustomerForm customer={editing} onClose={() => setFormOpen(false)} onSave={saveCustomer} />}
       {debtCustomer && <DebtForm customer={debtCustomer} onClose={() => setDebtCustomer(undefined)} onSave={(amount) => { setCustomers(customers.map((item) => item.id === debtCustomer.id ? { ...item, debt: item.debt + amount } : item)); setDebtCustomer(undefined); notify('Đã thêm công nợ') }} />}
       {pendingDelete && <ConfirmDialog message={`Bạn có chắc muốn xóa khách hàng “${pendingDelete.name}”? Thao tác này không thể hoàn tác.`} onCancel={() => setPendingDelete(undefined)} onConfirm={() => { setCustomers(customers.filter((item) => item.id !== pendingDelete.id)); setPendingDelete(undefined); notify('Đã xóa khách hàng') }} />}
       {toast && <div className="customer-toast">{toast}</div>}
-    </main>
+    </Main>
   )
 }
+
+

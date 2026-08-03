@@ -1,4 +1,5 @@
-import {useState} from 'react'
+﻿import {useState} from 'react'
+import { Article, Button, Fieldset, Footer, Header, Input, Label, Main, Section, Select } from '../../components/MaterialPrimitives/MaterialPrimitives'
 import useIndexedDbState from '../../hooks/useIndexedDbState'
 import ActionIcon from '../../components/ActionIcon/ActionIcon'
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
@@ -44,43 +45,43 @@ function CategoryForm({category, defaultGroup, onClose, onSave}) {
 
     return (
         <div className="category-overlay" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-            <section className="category-modal" role="dialog" aria-modal="true">
-                <header><h2>{category ? 'Sửa danh mục' : 'Thêm danh mục'}</h2>
-                    <button type="button" onClick={onClose}>×</button>
-                </header>
+            <Section className="category-modal" role="dialog" aria-modal="true">
+                <Header><h2>{category ? 'Sửa danh mục' : 'Thêm danh mục'}</h2>
+                    <Button type="button" onClick={onClose}>×</Button>
+                </Header>
                 <form onSubmit={submit}>
-                    <label>Tên danh mục: <b>*</b><input name="name" required defaultValue={category?.name}
-                                                        placeholder="Nhập tên danh mục"/></label>
-                    <label>Loại danh mục: <b>*</b><select name="group" defaultValue={category?.group || defaultGroup}>
+                    <Label>Tên danh mục: <b>*</b><Input name="name" required defaultValue={category?.name}
+                                                        placeholder="Nhập tên danh mục"/></Label>
+                    <Label>Loại danh mục: <b>*</b><Select name="group" defaultValue={category?.group || defaultGroup}>
                         <option>Doanh thu</option>
                         <option>Chi phí</option>
-                    </select></label>
-                    <fieldset>
+                    </Select></Label>
+                    <Fieldset>
                         <legend>Biểu tượng:</legend>
-                        <div className="category-icon-picker">{iconOptions.map((item) => <button type="button"
+                        <div className="category-icon-picker">{iconOptions.map((item) => <Button type="button"
                                                                                                  className={icon === item ? 'selected' : ''}
                                                                                                  key={item}
-                                                                                                 onClick={() => setIcon(item)}>{item}</button>)}</div>
-                    </fieldset>
-                    <label className="internal-check"><input type="checkbox" name="internal"
+                                                                                                 onClick={() => setIcon(item)}>{item}</Button>)}</div>
+                    </Fieldset>
+                    <Label className="internal-check"><Input type="checkbox" name="internal"
                                                              defaultChecked={category?.internal}/>
-                        <span>Danh mục nội bộ</span></label>
-                    <footer>
-                        <button type="button" onClick={onClose}>Hủy</button>
-                        <button type="submit">Lưu danh mục</button>
-                    </footer>
+                        <span>Danh mục nội bộ</span></Label>
+                    <Footer>
+                        <Button type="button" onClick={onClose}>Hủy</Button>
+                        <Button type="submit">Lưu danh mục</Button>
+                    </Footer>
                 </form>
-            </section>
+            </Section>
         </div>
     )
 }
 
 function CategorySection({categories, onEdit, onDelete}) {
     return (
-        <section className="category-section">
+        <Section className="category-section">
             <div className="category-grid">
                 {categories.map((category) => (
-                    <article className="category-card" key={category.id}>
+                    <Article className="category-card" key={category.id}>
                         <span className="category-card__icon">{category.icon}</span>
                         <div className="category-card__name"><h3>{category.name}</h3>
                             <p>{category.group}</p>{category.internal &&
@@ -88,10 +89,10 @@ function CategorySection({categories, onEdit, onDelete}) {
                         <div className="category-card__actions"><ActionIcon icon="edit" label="Sửa danh mục"
                                                                             onClick={() => onEdit(category)}/><ActionIcon
                             icon="trash" tone="red" label="Xóa danh mục" onClick={() => onDelete(category)}/></div>
-                    </article>
+                    </Article>
                 ))}
             </div>
-        </section>
+        </Section>
     )
 }
 
@@ -129,18 +130,18 @@ export default function Categories() {
     }
 
     return (
-        <main className="categories-page">
-            <header className="categories-header"><h2>Quản lý danh mục</h2>
+        <Main className="categories-page">
+            <Header className="categories-header"><h2>Quản lý danh mục</h2>
                 <div>
-                    <button className="add-category" onClick={() => openAdd(activeGroup)}>＋ Thêm danh mục</button>
+                    <Button className="add-category" onClick={() => openAdd(activeGroup)}>＋ Thêm danh mục</Button>
                     <NotificationBell className="categories-bell" count={15} />
                 </div>
-            </header>
+            </Header>
             <div className="category-tabs" role="tablist" aria-label="Loại danh mục">
                 {['Doanh thu', 'Chi phí'].map((group) => (
-                    <button key={group} role="tab" aria-selected={activeGroup === group}
+                    <Button key={group} role="tab" aria-selected={activeGroup === group}
                             className={activeGroup === group ? 'active' : ''}
-                            onClick={() => setActiveGroup(group)}>{group}</button>
+                            onClick={() => setActiveGroup(group)}>{group}</Button>
                 ))}
             </div>
             <CategorySection categories={categories.filter((item) => item.group === activeGroup)} onEdit={(item) => {
@@ -153,6 +154,8 @@ export default function Categories() {
                 message={`Bạn có chắc muốn xóa danh mục “${pendingDelete.name}”? Thao tác này không thể hoàn tác.`}
                 onCancel={() => setPendingDelete(undefined)} onConfirm={confirmDelete}/>}
             {toast && <div className="category-toast">{toast}</div>}
-        </main>
+        </Main>
     )
 }
+
+

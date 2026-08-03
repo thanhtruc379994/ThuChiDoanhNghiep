@@ -1,4 +1,5 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
+import { Article, Button, Footer, Section } from '../MaterialPrimitives/MaterialPrimitives'
 import './NotificationPanel.css'
 
 const initialNotifications = [
@@ -13,25 +14,26 @@ function NotificationPanel({ onClose }) {
 
   return (
     <div className="notification-panel-overlay" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-      <section className="notification-panel" role="dialog" aria-modal="true" aria-label="Trung tâm thông báo">
+      <Section className="notification-panel" role="dialog" aria-modal="true" aria-label="Trung tâm thông báo">
         <div className="notification-panel__toolbar">
           <span>{unreadCount} thông báo chưa đọc</span>
-          <button type="button" onClick={onClose} aria-label="Đóng">×</button>
-          <button type="button" onClick={() => setItems(items.map((item) => ({ ...item, unread: false })))}>Đánh dấu đã đọc</button>
+          <Button type="button" onClick={onClose} aria-label="Đóng">×</Button>
+          <Button type="button" onClick={() => setItems(items.map((item) => ({ ...item, unread: false })))}>Đánh dấu đã đọc</Button>
         </div>
         <div className="notification-list">
           {items.map((item) => (
-            <article className={`notification-item ${item.unread ? 'is-unread' : ''}`} key={item.id} onClick={() => setItems(items.map((entry) => entry.id === item.id ? { ...entry, unread: false } : entry))}>
+            <Article className={`notification-item ${item.unread ? 'is-unread' : ''}`} key={item.id} onClick={() => setItems(items.map((entry) => entry.id === item.id ? { ...entry, unread: false } : entry))}>
               <i className={`notification-item__dot ${item.tone}`} />
               <div><strong>{item.title}</strong><p>{item.text}</p><small>{item.time}</small></div>
               {item.unread && <b className="notification-item__new">Mới</b>}
-            </article>
+            </Article>
           ))}
         </div>
-        <footer><button type="button" onClick={onClose}>Đóng</button></footer>
-      </section>
+        <Footer><Button type="button" onClick={onClose}>Đóng</Button></Footer>
+      </Section>
     </div>
   )
 }
 
 export default NotificationPanel
+

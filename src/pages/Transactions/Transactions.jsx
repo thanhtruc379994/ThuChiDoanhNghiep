@@ -1,4 +1,5 @@
-import {useState} from 'react'
+﻿import {useState} from 'react'
+import { Article, Button, Footer, Header, Input, Label, Main, Section, Select, Table, TableBody, TableDataCell, TableHead, TableHeaderCell, TableRow } from '../../components/MaterialPrimitives/MaterialPrimitives'
 import useIndexedDbState from '../../hooks/useIndexedDbState'
 import ActionIcon from '../../components/ActionIcon/ActionIcon'
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
@@ -103,10 +104,10 @@ const periods = ['Tháng này', 'Quý này', 'Năm nay', 'Tùy chỉnh']
 
 function SummaryCard({tone, icon, title, value, children}) {
     return (
-        <article className={`summary-card ${tone}`}>
+        <Article className={`summary-card ${tone}`}>
             <span className="summary-card__icon">{icon}</span>
             <div><h3>{title}</h3><strong>{value}</strong>{children}</div>
-        </article>
+        </Article>
     )
 }
 
@@ -158,7 +159,7 @@ function PaymentVoucher({transaction, copy, config}) {
     const [day = '15', month = '05', year = '2026'] = transaction.date.split('/')
     const isReceipt = transaction.type === 'Doanh thu'
     return (
-        <section className="voucher">
+        <Section className="voucher">
             <div className="voucher__heading">
                 <div><b>ĐƠN VỊ: {config.unit}</b><span>Địa chỉ: {config.address}</span></div>
                 <div><b>Mẫu số 02 - TT</b><span>(Ban hành theo Thông tư số 200/2014/TT-BTC)</span><span>Ngày 22/12/2014 của Bộ Tài chính</span>
@@ -181,7 +182,7 @@ function PaymentVoucher({transaction, copy, config}) {
                     <div key={title}><b>{title}</b><span>(Ký, họ tên)</span></div>
                 ))}
             </div>
-        </section>
+        </Section>
     )
 }
 
@@ -194,25 +195,25 @@ function VoucherConfigModal({config, onClose, onSave}) {
     return (
         <div className="modal-backdrop voucher-config-backdrop"
              onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-            <section className="voucher-config-modal" role="dialog" aria-modal="true"
+            <Section className="voucher-config-modal" role="dialog" aria-modal="true"
                      aria-labelledby="voucher-config-title">
-                <header>
+                <Header>
                     <h2 id="voucher-config-title">☷ Thay đổi thông tin in</h2>
-                    <button type="button" onClick={onClose} aria-label="Đóng">×</button>
-                </header>
+                    <Button type="button" onClick={onClose} aria-label="Đóng">×</Button>
+                </Header>
                 <form onSubmit={submit}>
-                    <label>Đơn vị:
-                        <input name="unit" required defaultValue={config.unit}/>
-                    </label>
-                    <label>Địa chỉ:
-                        <input name="address" required defaultValue={config.address}/>
-                    </label>
-                    <footer>
-                        <button type="button" onClick={onClose}>Hủy</button>
-                        <button type="submit">Lưu cấu hình</button>
-                    </footer>
+                    <Label>Đơn vị:
+                        <Input name="unit" required defaultValue={config.unit}/>
+                    </Label>
+                    <Label>Địa chỉ:
+                        <Input name="address" required defaultValue={config.address}/>
+                    </Label>
+                    <Footer>
+                        <Button type="button" onClick={onClose}>Hủy</Button>
+                        <Button type="submit">Lưu cấu hình</Button>
+                    </Footer>
                 </form>
-            </section>
+            </Section>
         </div>
     )
 }
@@ -251,95 +252,95 @@ function DisbursementModal({onClose, onSubmit}) {
     return (
         <div className="disbursement-overlay"
              onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-            <section className="disbursement-modal" role="dialog" aria-modal="true"
+            <Section className="disbursement-modal" role="dialog" aria-modal="true"
                      aria-labelledby="disbursement-title">
-                <header><h2 id="disbursement-title">Giải ngân thanh toán trả thẳng NCC (Nhiều gói)</h2>
-                    <button type="button" onClick={onClose}>×</button>
-                </header>
+                <Header><h2 id="disbursement-title">Giải ngân thanh toán trả thẳng NCC (Nhiều gói)</h2>
+                    <Button type="button" onClick={onClose}>×</Button>
+                </Header>
                 <form onSubmit={finish}>
-                    <section className="loan-information">
+                    <Section className="loan-information">
                         <h3>1. Thông tin Khế ước giải ngân</h3>
                         <div className="loan-grid">
-                            <label><span>Tài khoản vay (Hạn mức): <b>*</b></span><select required
+                            <Label><span>Tài khoản vay (Hạn mức): <b>*</b></span><Select required
                                                                                          defaultValue="VAY TECHCOMBANK">
                                 <option>VAY TECHCOMBANK</option>
                                 <option>VAY TPBANK</option>
-                            </select></label>
-                            <label><span>Mã Khế ước nhận nợ (Số LĐ): <b>*</b></span><input required
-                                                                                           placeholder="VD: LĐ2525319170"/></label>
+                            </Select></Label>
+                            <Label><span>Mã Khế ước nhận nợ (Số LĐ): <b>*</b></span><Input required
+                                                                                           placeholder="VD: LĐ2525319170"/></Label>
                             <div className="loan-limit-summary">
                                 <span>Tổng hạn mức: <b>11.500.000.000 VND</b></span><span>Đã vay: <b>6.269.457.921 VND</b></span><span>Khả dụng: <strong>5.230.542.079 VND</strong></span>
                             </div>
-                            <label><span>Ngày giải ngân: <b>*</b></span><input required type="date"
-                                                                               defaultValue="2026-05-15"/></label>
-                            <label><span>Thời hạn trả nợ gốc: <b>*</b></span><input required type="date"
-                                                                                    defaultValue="2026-05-15"/></label>
-                            <label
-                                className="disbursement-total"><span>Tổng Số Tiền Giải Ngân (Chỉ đọc):</span><strong>{new Intl.NumberFormat('vi-VN').format(total)} VND</strong></label>
+                            <Label><span>Ngày giải ngân: <b>*</b></span><Input required type="date"
+                                                                               defaultValue="2026-05-15"/></Label>
+                            <Label><span>Thời hạn trả nợ gốc: <b>*</b></span><Input required type="date"
+                                                                                    defaultValue="2026-05-15"/></Label>
+                            <Label
+                                className="disbursement-total"><span>Tổng Số Tiền Giải Ngân (Chỉ đọc):</span><strong>{new Intl.NumberFormat('vi-VN').format(total)} VND</strong></Label>
                         </div>
-                    </section>
+                    </Section>
 
-                    <section className="allocation-section">
+                    <Section className="allocation-section">
                         <h3>2. Phân bổ thanh toán cho các Hợp đồng</h3>
                         <div className="allocation-entry">
-                            <label>Dự án:<select value={project} onChange={(event) => setProject(event.target.value)}>
+                            <Label>Dự án:<Select value={project} onChange={(event) => setProject(event.target.value)}>
                                 <option value="">Chọn dự án...</option>
                                 <option>Vinfast | Tủ đổi pin XMĐ</option>
                                 <option>Vincons | 148 Giảng Võ</option>
                                 <option>Techcombank | Nhận diện</option>
-                            </select></label>
-                            <label>Nhà cung cấp:<select value={supplier}
+                            </Select></Label>
+                            <Label>Nhà cung cấp:<Select value={supplier}
                                                         onChange={(event) => setSupplier(event.target.value)}>
                                 <option value="">Chọn NCC...</option>
                                 <option>Nhà cung cấp 007</option>
                                 <option>NEOTECH</option>
                                 <option>Ngôi Sao Đỏ</option>
-                            </select></label>
-                            <label>Chọn hợp đồng còn nợ:<select value={contract}
+                            </Select></Label>
+                            <Label>Chọn hợp đồng còn nợ:<Select value={contract}
                                                                 onChange={(event) => setContract(event.target.value)}>
                                 <option value="">-- Chọn hợp đồng --</option>
                                 <option>HĐ-001/2026 - Vật tư</option>
                                 <option>HĐ-002/2026 - Nhân công</option>
-                            </select></label>
-                            <label>Số tiền:<input type="number" min="1" value={amount}
+                            </Select></Label>
+                            <Label>Số tiền:<Input type="number" min="1" value={amount}
                                                   onChange={(event) => setAmount(event.target.value)}
-                                                  placeholder="Nhập số tiền..."/></label>
-                            <button type="button" onClick={addAllocation}>＋ Thêm</button>
+                                                  placeholder="Nhập số tiền..."/></Label>
+                            <Button type="button" onClick={addAllocation}>＋ Thêm</Button>
                         </div>
                         {error && <p className="disbursement-error">{error}</p>}
                         <div className="allocation-table-scroll">
-                            <table className="allocation-table">
-                                <thead>
-                                <tr>
-                                    <th>Dự án</th>
-                                    <th>Nhà cung cấp</th>
-                                    <th>Hợp đồng/Hạng mục</th>
-                                    <th>Số tiền</th>
-                                    <th>Xóa</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {allocations.map((item) => <tr key={item.id}>
-                                    <td>{item.project}</td>
-                                    <td>{item.supplier}</td>
-                                    <td>{item.contract}</td>
-                                    <td>{new Intl.NumberFormat('vi-VN').format(item.amount)} VND</td>
-                                    <td><ActionIcon icon="trash" tone="red" label="Xóa phân bổ"
+                            <Table className="allocation-table">
+                                <TableHead>
+                                <TableRow>
+                                    <TableHeaderCell>Dự án</TableHeaderCell>
+                                    <TableHeaderCell>Nhà cung cấp</TableHeaderCell>
+                                    <TableHeaderCell>Hợp đồng/Hạng mục</TableHeaderCell>
+                                    <TableHeaderCell>Số tiền</TableHeaderCell>
+                                    <TableHeaderCell>Xóa</TableHeaderCell>
+                                </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                {allocations.map((item) => <TableRow key={item.id}>
+                                    <TableDataCell>{item.project}</TableDataCell>
+                                    <TableDataCell>{item.supplier}</TableDataCell>
+                                    <TableDataCell>{item.contract}</TableDataCell>
+                                    <TableDataCell>{new Intl.NumberFormat('vi-VN').format(item.amount)} VND</TableDataCell>
+                                    <TableDataCell><ActionIcon icon="trash" tone="red" label="Xóa phân bổ"
                                                     onClick={() => setAllocations(allocations.filter((row) => row.id !== item.id))}/>
-                                    </td>
-                                </tr>)}
-                                </tbody>
-                            </table>
+                                    </TableDataCell>
+                                </TableRow>)}
+                                </TableBody>
+                            </Table>
                             {!allocations.length &&
                                 <div className="allocation-empty">Chưa có hợp đồng nào được thêm vào Khế ước</div>}
                         </div>
-                    </section>
-                    <footer>
-                        <button type="button" onClick={onClose}>Hủy</button>
-                        <button type="submit">Thực hiện giải ngân LĐ</button>
-                    </footer>
+                    </Section>
+                    <Footer>
+                        <Button type="button" onClick={onClose}>Hủy</Button>
+                        <Button type="submit">Thực hiện giải ngân LĐ</Button>
+                    </Footer>
                 </form>
-            </section>
+            </Section>
         </div>
     )
 }
@@ -366,22 +367,22 @@ function AttachmentModal({initialFiles, onClose, onComplete}) {
     const sizeLabel = (size) => size >= 1024 * 1024 ? `${(size / 1024 / 1024).toFixed(1)} MB` : `${Math.ceil(size / 1024)} KB`
     return (
         <div className="attachment-overlay" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-            <section className="attachment-modal" role="dialog" aria-modal="true" aria-labelledby="attachment-title">
-                <header><h2 id="attachment-title">⌕ Đính kèm chứng từ</h2>
-                    <button type="button" onClick={onClose}>×</button>
-                </header>
+            <Section className="attachment-modal" role="dialog" aria-modal="true" aria-labelledby="attachment-title">
+                <Header><h2 id="attachment-title">⌕ Đính kèm chứng từ</h2>
+                    <Button type="button" onClick={onClose}>×</Button>
+                </Header>
                 <div className="attachment-body">
-                    <label className="attachment-dropzone" onDragOver={(event) => event.preventDefault()}
+                    <Label className="attachment-dropzone" onDragOver={(event) => event.preventDefault()}
                            onDrop={(event) => {
                                event.preventDefault();
                                acceptFiles(event.dataTransfer.files)
                            }}>
-                        <input type="file" multiple accept=".jpg,.jpeg,.png,.pdf"
+                        <Input type="file" multiple accept=".jpg,.jpeg,.png,.pdf"
                                onChange={(event) => acceptFiles(event.target.files)}/>
                         <span className="attachment-cloud">☁</span>
                         <strong>Bấm vào đây để chọn Ảnh / File Scan</strong>
                         <small>Hỗ trợ: JPG, PNG, PDF (Tối đa 5MB/file)</small>
-                    </label>
+                    </Label>
                     {error && <p className="attachment-error">{error}</p>}
                     <div className="attachment-list">
                         {!files.length ? <div className="attachment-empty">Chưa có tài liệu đính kèm
@@ -390,18 +391,18 @@ function AttachmentModal({initialFiles, onClose, onComplete}) {
                                 <span
                                     className="attachment-file-icon">{item.type === 'application/pdf' ? 'PDF' : 'IMG'}</span>
                                 <div><strong>{item.name}</strong><small>{sizeLabel(item.size)}</small></div>
-                                {item.file && <button type="button"
-                                                      onClick={() => window.open(URL.createObjectURL(item.file), '_blank')}>Xem</button>}
+                                {item.file && <Button type="button"
+                                                      onClick={() => window.open(URL.createObjectURL(item.file), '_blank')}>Xem</Button>}
                                 <ActionIcon icon="trash" tone="red" label="Xóa tài liệu"
                                             onClick={() => setFiles(files.filter((file) => file.id !== item.id))}/>
                       1      </div>
                         ))}
                     </div>
                 </div>
-                <footer>
-                    <button type="button" onClick={() => onComplete(files)}>✓ Hoàn tất</button>
-                </footer>
-            </section>
+                <Footer>
+                    <Button type="button" onClick={() => onComplete(files)}>✓ Hoàn tất</Button>
+                </Footer>
+            </Section>
         </div>
     )
 }
@@ -494,18 +495,18 @@ function Transactions() {
 
     return (
         <>
-            <main className="content">
-                <header className="page-header">
+            <Main className="content">
+                <Header className="page-header">
                     <h2>Quản lý giao dịch</h2>
                     <div className="page-actions">
-                        <button className="action action--purple" onClick={() => setVoucherConfigOpen(true)}>
+                        <Button className="action action--purple" onClick={() => setVoucherConfigOpen(true)}>
                             ▣ Phiếu Thu-Chi
-                        </button>
-                        <button className="action action--orange" onClick={() => setShowDisbursement(true)}>♨ Giải
+                        </Button>
+                        <Button className="action action--orange" onClick={() => setShowDisbursement(true)}>♨ Giải
                             ngân
-                        </button>
-                        <button className="action action--green" onClick={exportExcel}>Xuất Excel</button>
-                        <button className="action action--blue" onClick={() => openEditor({
+                        </Button>
+                        <Button className="action action--green" onClick={exportExcel}>Xuất Excel</Button>
+                        <Button className="action action--blue" onClick={() => openEditor({
                             ...transactions[0],
                             _new: true,
                             date: '28/07/2026',
@@ -513,37 +514,37 @@ function Transactions() {
                             before: '0',
                             after: '0'
                         })}>＋ Thêm giao dịch
-                        </button>
+                        </Button>
                         <NotificationBell className="notification" count={23} />
                     </div>
-                </header>
+                </Header>
 
-                <section className="filters">
+                <Section className="filters">
                     <div className="periods">
                         {periods.map((item) => (
-                            <button key={item} className={period === item ? 'is-selected' : ''}
-                                    onClick={() => setPeriod(item)}>{item}</button>
+                            <Button key={item} className={period === item ? 'is-selected' : ''}
+                                    onClick={() => setPeriod(item)}>{item}</Button>
                         ))}
                     </div>
-                    <select value={type} onChange={(event) => setType(event.target.value)}
+                    <Select value={type} onChange={(event) => setType(event.target.value)}
                             aria-label="Lọc loại giao dịch">
                         <option>Tất cả</option>
                         <option>Doanh thu</option>
                         <option>Chi phí</option>
-                    </select>
-                    <label className="search"><span>⌕</span><input value={query}
+                    </Select>
+                    <Label className="search"><Input value={query}
                                                                    onChange={(e) => setQuery(e.target.value)}
-                                                                   placeholder="Tìm kiếm giao dịch..."/></label>
+                                                                   placeholder="Tìm kiếm giao dịch..."/></Label>
                     {period === 'Tùy chỉnh' && (
                         <div className="custom-dates">
-                            <input type="date" defaultValue="2026-05-01" aria-label="Từ ngày"/>
+                            <Input type="date" defaultValue="2026-05-01" aria-label="Từ ngày"/>
                             <span>đến</span>
-                            <input type="date" defaultValue="2026-05-15" aria-label="Đến ngày"/>
+                            <Input type="date" defaultValue="2026-05-15" aria-label="Đến ngày"/>
                         </div>
                     )}
-                </section>
+                </Section>
 
-                <section className="summary-grid">
+                <Section className="summary-grid">
                     <SummaryCard tone="income" icon="↑" title="Doanh thu trong kỳ" value="484.269.907 VND">
                         <p>Chờ quyết toán (WIP): <b>8.204.922.210 VND</b></p>
                         <p>Dự án Dự kiến: <em>2.585.047.000 VND</em></p>
@@ -560,41 +561,41 @@ function Transactions() {
                         <p>Phải trả NCC: <b>18.375.094.684 VND</b></p>
                         <p>Dư nợ vay: <b>6.269.457.921 VND</b></p>
                     </SummaryCard>
-                </section>
+                </Section>
 
-                <section className="table-card">
+                <Section className="table-card">
                     <div className="table-scroll">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Ngày</th>
-                                <th>Loại</th>
-                                <th>Danh mục</th>
-                                <th>Option</th>
-                                <th>Dự án</th>
-                                <th>Trước thuế</th>
-                                <th>VAT</th>
-                                <th>Sau thuế</th>
-                                <th>Tài khoản</th>
-                                <th>Đối tượng</th>
-                                <th>Thao tác</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                        <Table>
+                            <TableHead>
+                            <TableRow>
+                                <TableHeaderCell>Ngày</TableHeaderCell>
+                                <TableHeaderCell>Loại</TableHeaderCell>
+                                <TableHeaderCell>Danh mục</TableHeaderCell>
+                                <TableHeaderCell>Option</TableHeaderCell>
+                                <TableHeaderCell>Dự án</TableHeaderCell>
+                                <TableHeaderCell>Trước thuế</TableHeaderCell>
+                                <TableHeaderCell>VAT</TableHeaderCell>
+                                <TableHeaderCell>Sau thuế</TableHeaderCell>
+                                <TableHeaderCell>Tài khoản</TableHeaderCell>
+                                <TableHeaderCell>Đối tượng</TableHeaderCell>
+                                <TableHeaderCell>Thao tác</TableHeaderCell>
+                            </TableRow>
+                            </TableHead>
+                            <TableBody>
                             {filtered.map((row, index) => (
-                                <tr key={`${row.date}-${index}`}>
-                                    <td>{row.date}</td>
-                                    <td className={row.type === 'Chi phí' ? 'cost' : 'revenue-cell'}>{row.type === 'Chi phí' ? '↓' : '↑'} {row.type}</td>
-                                    <td>{row.category}</td>
-                                    <td>{row.option}</td>
-                                    <td className="project">{row.project}</td>
-                                    <td className="money">{row.before} VND</td>
-                                    <td><span className="vat">{row.vat}</span></td>
-                                    <td className="money">{row.after} VND</td>
-                                    <td>{row.account}</td>
-                                    <td className="transaction-object">
+                                <TableRow key={`${row.date}-${index}`}>
+                                    <TableDataCell>{row.date}</TableDataCell>
+                                    <TableDataCell className={row.type === 'Chi phí' ? 'cost' : 'revenue-cell'}>{row.type === 'Chi phí' ? '↓' : '↑'} {row.type}</TableDataCell>
+                                    <TableDataCell>{row.category}</TableDataCell>
+                                    <TableDataCell>{row.option}</TableDataCell>
+                                    <TableDataCell className="project">{row.project}</TableDataCell>
+                                    <TableDataCell className="money">{row.before} VND</TableDataCell>
+                                    <TableDataCell><span className="vat">{row.vat}</span></TableDataCell>
+                                    <TableDataCell className="money">{row.after} VND</TableDataCell>
+                                    <TableDataCell>{row.account}</TableDataCell>
+                                    <TableDataCell className="transaction-object">
                                         <span>{row.object || '—'}</span>
-                                        <button type="button"
+                                        <Button type="button"
                                                 className={row.hasCashFlow ? 'has-cash-flow' : ''}
                                                 disabled={!row.hasCashFlow}
                                                 title={row.hasCashFlow
@@ -603,163 +604,163 @@ function Transactions() {
                                                 aria-label={row.hasCashFlow
                                                     ? 'In phiếu thu chi'
                                                     : 'Chưa có dòng tiền thu chi, không thể in'}
-                                                onClick={() => printVoucher(row)}>▣</button>
-                                    </td>
-                                    <td className="row-actions">
+                                                onClick={() => printVoucher(row)}>▣</Button>
+                                    </TableDataCell>
+                                    <TableDataCell className="row-actions">
                                         <ActionIcon icon="edit" label="Chỉnh sửa giao dịch"
                                                     onClick={() => openEditor(row)}/>
                                         <ActionIcon icon="trash" tone="red" label="Xóa giao dịch"
                                                     onClick={() => setPendingDelete(row)}/>
-                                    </td>
-                                </tr>
+                                    </TableDataCell>
+                                </TableRow>
                             ))}
-                            </tbody>
-                        </table>
+                            </TableBody>
+                        </Table>
                         {!filtered.length && <div className="empty">Không tìm thấy giao dịch phù hợp.</div>}
                     </div>
                     <div className="table-toolbar">
                         <span>Hiển thị 1-{filtered.length} của 63 giao dịch</span>
                         <div className="pagination">
-                            <button disabled>‹</button>
-                            {[1, 2, 3, 4, 5].map((n) => <button key={n} className={page === n ? 'is-current' : ''}
-                                                                onClick={() => setPage(n)}>{n}</button>)}
+                            <Button disabled>‹</Button>
+                            {[1, 2, 3, 4, 5].map((n) => <Button key={n} className={page === n ? 'is-current' : ''}
+                                                                onClick={() => setPage(n)}>{n}</Button>)}
                             <span>...</span>
-                            <button onClick={() => setPage(7)}>7</button>
-                            <button onClick={() => setPage(Math.min(7, page + 1))}>›</button>
+                            <Button onClick={() => setPage(7)}>7</Button>
+                            <Button onClick={() => setPage(Math.min(7, page + 1))}>›</Button>
                         </div>
                     </div>
-                </section>
-            </main>
+                </Section>
+            </Main>
             {editing && (
                 <div className="modal-backdrop"
                      onMouseDown={(event) => event.target === event.currentTarget && closeEditor()}>
-                    <section className="transaction-modal" role="dialog" aria-modal="true"
+                    <Section className="transaction-modal" role="dialog" aria-modal="true"
                              aria-labelledby="edit-transaction-title">
-                        <header className="transaction-modal__header">
+                        <Header className="transaction-modal__header">
                             <h2 id="edit-transaction-title">{editing._new ? 'Thêm giao dịch' : 'Sửa giao dịch'}</h2>
-                            <button type="button" onClick={closeEditor} aria-label="Đóng">×</button>
-                        </header>
+                            <Button type="button" onClick={closeEditor} aria-label="Đóng">×</Button>
+                        </Header>
 
                         <form onSubmit={saveTransaction}>
                             <div className="transaction-modal__body">
-                                <label className="edit-field edit-field--wide">
+                                <Label className="edit-field edit-field--wide">
                                     <span>Loại giao dịch: <b>*</b></span>
                                     <div className="transaction-kind-options">
-                                        <button type="button"
+                                        <Button type="button"
                                                 className={transactionKind === 'Chi phí' ? 'selected expense-kind' : ''}
                                                 onClick={() => setTransactionKind('Chi phí')}>↓&nbsp; Chi phí
-                                        </button>
-                                        <button type="button"
+                                        </Button>
+                                        <Button type="button"
                                                 className={transactionKind === 'Doanh thu' ? 'selected revenue-kind' : ''}
                                                 onClick={() => setTransactionKind('Doanh thu')}>↑&nbsp; Doanh thu
-                                        </button>
-                                        <button type="button"
+                                        </Button>
+                                        <Button type="button"
                                                 className={transactionKind === 'Chuyển khoản' ? 'selected transfer-kind' : ''}
                                                 onClick={() => setTransactionKind('Chuyển khoản')}>⇄&nbsp; Chuyển khoản
-                                        </button>
+                                        </Button>
                                     </div>
-                                </label>
+                                </Label>
 
-                                <label className="edit-field">
+                                <Label className="edit-field">
                                     <span>{transactionKind === 'Doanh thu' ? 'Tài khoản thu' : transactionKind === 'Chuyển khoản' ? 'Tài khoản chuyển' : 'Tài khoản chi'}: <b>*</b></span>
-                                    <select defaultValue={editing.account}>
+                                    <Select defaultValue={editing.account}>
                                         <option>{editing.account}</option>
                                         <option>SQTM (950.514 VND)</option>
                                         <option>ACB</option>
-                                    </select>
-                                </label>
-                                <label className="edit-field">
+                                    </Select>
+                                </Label>
+                                <Label className="edit-field">
                                     <span>Danh mục: <b>*</b></span>
-                                    <select defaultValue={editing.category}>
+                                    <Select defaultValue={editing.category}>
                                         <option>{editing.category}</option>
                                         <option>▣ Chi Khác</option>
                                         <option>$ Hợp Đồng</option>
-                                    </select>
-                                </label>
+                                    </Select>
+                                </Label>
 
-                                <label className="edit-field">
+                                <Label className="edit-field">
                                     <span>Số tiền trước thuế: <b>*</b></span>
-                                    <input defaultValue={editing.before.replace(/[-\s]/g, '')}/>
-                                </label>
-                                <label className="edit-field">
+                                    <Input defaultValue={editing.before.replace(/[-\s]/g, '')}/>
+                                </Label>
+                                <Label className="edit-field">
                                     <span>Thuế VAT:</span>
-                                    <div className="vat-inputs"><select defaultValue={editing._new ? '8%' : 'Nhập tay'}>
+                                    <div className="vat-inputs"><Select defaultValue={editing._new ? '8%' : 'Nhập tay'}>
                                         <option>Nhập tay</option>
                                         <option>8%</option>
                                         <option>10%</option>
-                                    </select><input placeholder="Nhập số tiền VAT"/></div>
-                                </label>
+                                    </Select><Input placeholder="Nhập số tiền VAT"/></div>
+                                </Label>
 
-                                <label className="edit-field">
+                                <Label className="edit-field">
                                     <span>Số tiền sau thuế: <b>*</b></span>
-                                    <input className="readonly" defaultValue={editing.after.replace(/[-\s]/g, '')}
+                                    <Input className="readonly" defaultValue={editing.after.replace(/[-\s]/g, '')}
                                            readOnly/>
-                                </label>
-                                <label className="edit-field">
+                                </Label>
+                                <Label className="edit-field">
                                     <span>Ngày giao dịch: <b>*</b></span>
-                                    <input type="date" defaultValue="2026-05-15"/>
-                                </label>
+                                    <Input type="date" defaultValue="2026-05-15"/>
+                                </Label>
 
-                                <label className="edit-field edit-field--wide">
+                                <Label className="edit-field edit-field--wide">
                                     <span>Nhà cung cấp:</span>
-                                    <input placeholder="Nhập để tìm kiếm..."/>
-                                </label>
-                                <label className="edit-field edit-field--wide">
+                                    <Input placeholder="Nhập để tìm kiếm..."/>
+                                </Label>
+                                <Label className="edit-field edit-field--wide">
                                     <span>Dự án:</span>
-                                    <input defaultValue={editing.project} placeholder="Nhập để tìm kiếm dự án..."/>
-                                </label>
+                                    <Input defaultValue={editing.project} placeholder="Nhập để tìm kiếm dự án..."/>
+                                </Label>
 
-                                <section className="invoice-section">
+                                <Section className="invoice-section">
                                     <div className="invoice-section__title">
                                         <strong>▣ Khai báo Hóa Đơn</strong>
-                                        <button type="button" onClick={() => setShowInvoice(true)}>＋ Thêm Hóa đơn
-                                        </button>
+                                        <Button type="button" onClick={() => setShowInvoice(true)}>＋ Thêm Hóa đơn
+                                        </Button>
                                     </div>
                                     {editing._new || invoiceRemoved ?
                                         <div className="invoice-empty">Chưa có hóa đơn nào</div> : (
                                             <div className="declared-invoice-scroll">
-                                                <table className="declared-invoice-table">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Số HĐ</th>
-                                                        <th>Ngày HĐ</th>
-                                                        <th>Trước thuế</th>
-                                                        <th>VAT</th>
-                                                        <th>Sau thuế</th>
-                                                        <th>Thao tác</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>02190279</td>
-                                                        <td>15/05/2026</td>
-                                                        <td>{editing.before.replace('-', '').trim()} VND</td>
-                                                        <td>{editing.vat}</td>
-                                                        <td>{editing.after.replace('-', '').trim()} VND</td>
-                                                        <td><ActionIcon icon="attach" tone="green"
+                                                <Table className="declared-invoice-table">
+                                                    <TableHead>
+                                                    <TableRow>
+                                                        <TableHeaderCell>Số HĐ</TableHeaderCell>
+                                                        <TableHeaderCell>Ngày HĐ</TableHeaderCell>
+                                                        <TableHeaderCell>Trước thuế</TableHeaderCell>
+                                                        <TableHeaderCell>VAT</TableHeaderCell>
+                                                        <TableHeaderCell>Sau thuế</TableHeaderCell>
+                                                        <TableHeaderCell>Thao tác</TableHeaderCell>
+                                                    </TableRow>
+                                                    </TableHead>
+                                                    <TableBody>
+                                                    <TableRow>
+                                                        <TableDataCell>02190279</TableDataCell>
+                                                        <TableDataCell>15/05/2026</TableDataCell>
+                                                        <TableDataCell>{editing.before.replace('-', '').trim()} VND</TableDataCell>
+                                                        <TableDataCell>{editing.vat}</TableDataCell>
+                                                        <TableDataCell>{editing.after.replace('-', '').trim()} VND</TableDataCell>
+                                                        <TableDataCell><ActionIcon icon="attach" tone="green"
                                                                         label="Đính kèm chứng từ"
                                                                         onClick={() => setAttachmentOpen(true)}/><ActionIcon
                                                             icon="edit" label="Sửa hóa đơn"
                                                             onClick={() => setShowInvoice(true)}/><ActionIcon
                                                             icon="trash" tone="red" label="Xóa hóa đơn"
-                                                            onClick={() => setPendingInvoiceDelete(true)}/></td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
+                                                            onClick={() => setPendingInvoiceDelete(true)}/></TableDataCell>
+                                                    </TableRow>
+                                                    </TableBody>
+                                                </Table>
                                             </div>
                                         )}
-                                </section>
+                                </Section>
 
-                                <label className="edit-field">
+                                <Label className="edit-field">
                                     <span>Nhân viên/Bộ phận thực hiện:</span>
-                                    <input defaultValue="Kiên Fox | P.TGĐ" readOnly/>
-                                </label>
-                                <label className="edit-field">
+                                    <Input defaultValue="Kiên Fox | P.TGĐ" readOnly/>
+                                </Label>
+                                <Label className="edit-field">
                                     <span>Ghi chú:</span>
-                                    <input defaultValue={editing._new ? '' : editing.project}/>
-                                </label>
+                                    <Input defaultValue={editing._new ? '' : editing.project}/>
+                                </Label>
 
-                                <section className="payment-section">
+                                <Section className="payment-section">
                                     <strong>▰ Thông tin thanh toán:</strong>
                                     <div className="payment-card">
                                         {editing._new ? <>
@@ -775,47 +776,47 @@ function Transactions() {
                                             <div>Trạng thái: <span>Đã thanh toán</span></div>
                                             <div className="payment-row">
                                                 <span>15/05/2026</span><span>{editing.account}</span><span>{editing.after.replace('-', '').trim()} VND</span><span>Thanh toán</span>
-                                                <button type="button">✎</button>
-                                                <button type="button">▥</button>
+                                                <Button type="button">✎</Button>
+                                                <Button type="button">▥</Button>
                                             </div>
                                         </>}
                                     </div>
-                                </section>
+                                </Section>
                             </div>
-                            <footer className="transaction-modal__footer">
-                                <button type="button" onClick={closeEditor}>Hủy</button>
-                                <button type="submit">Lưu</button>
-                            </footer>
+                            <Footer className="transaction-modal__footer">
+                                <Button type="button" onClick={closeEditor}>Hủy</Button>
+                                <Button type="submit">Lưu</Button>
+                            </Footer>
                         </form>
-                    </section>
+                    </Section>
 
                     {showInvoice && (
-                        <section className="invoice-modal" role="dialog" aria-modal="true"
+                        <Section className="invoice-modal" role="dialog" aria-modal="true"
                                  aria-labelledby="invoice-title">
-                            <header><strong id="invoice-title">▣ Khai báo Hóa đơn</strong>
-                                <button type="button" onClick={() => setShowInvoice(false)}>×</button>
-                            </header>
+                            <Header><strong id="invoice-title">▣ Khai báo Hóa đơn</strong>
+                                <Button type="button" onClick={() => setShowInvoice(false)}>×</Button>
+                            </Header>
                             <div className="invoice-total"><span>Tổng Giao dịch: <b>432.000 VND</b><small>Đã lên Hóa đơn: 0 VND</small></span><span>Hạn mức còn lại:<b>432.000 VND</b></span>
                             </div>
                             <div className="invoice-form">
-                                <label>Số Hóa đơn: <input placeholder="VD: 12345"/></label>
-                                <label>Ngày Hóa đơn: <input type="date" defaultValue="2026-05-17"/></label>
-                                <label>Trước thuế <input defaultValue="432.000 VND"/></label>
-                                <label>Thuế VAT <div><select>
+                                <Label>Số Hóa đơn: <Input placeholder="VD: 12345"/></Label>
+                                <Label>Ngày Hóa đơn: <Input type="date" defaultValue="2026-05-17"/></Label>
+                                <Label>Trước thuế <Input defaultValue="432.000 VND"/></Label>
+                                <Label>Thuế VAT <div><Select>
                                     <option>Nhập tay</option>
-                                </select><input defaultValue="0 VND"/></div></label>
-                                <label className="invoice-after">Sau Thuế (Tổng hóa đơn): <strong>432.000
-                                    VND</strong></label>
+                                </Select><Input defaultValue="0 VND"/></div></Label>
+                                <Label className="invoice-after">Sau Thuế (Tổng hóa đơn): <strong>432.000
+                                    VND</strong></Label>
                             </div>
-                            <footer>
-                                <button type="button" onClick={() => setShowInvoice(false)}>Hủy</button>
-                                <button type="button" onClick={() => {
+                            <Footer>
+                                <Button type="button" onClick={() => setShowInvoice(false)}>Hủy</Button>
+                                <Button type="button" onClick={() => {
                                     setShowInvoice(false);
                                     notify('Đã lưu hóa đơn')
                                 }}>✓ Lưu Hóa đơn
-                                </button>
-                            </footer>
-                        </section>
+                                </Button>
+                            </Footer>
+                        </Section>
                     )}
                 </div>
             )}
@@ -860,3 +861,5 @@ function Transactions() {
 }
 
 export default Transactions
+
+

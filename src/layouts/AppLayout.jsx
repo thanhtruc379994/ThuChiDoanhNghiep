@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import Sidebar from '../components/Sidebar/Sidebar'
+import { Box } from '@mui/material'
 
 function AppLayout({ activeTab, user, onLogout, onNavigate, children }) {
   const [collapsed, setCollapsed] = useState(false)
 
   return (
-    <div className={`app ${collapsed ? 'is-collapsed' : ''}`}>
+    <Box className={`app ${collapsed ? 'is-collapsed' : ''}`} sx={{ display: 'grid', minHeight: '100vh' }}>
       <Sidebar
         active={activeTab}
         collapsed={collapsed}
@@ -15,7 +16,7 @@ function AppLayout({ activeTab, user, onLogout, onNavigate, children }) {
         onNavigate={onNavigate}
       />
       {children}
-    </div>
+    </Box>
   )
 }
 
