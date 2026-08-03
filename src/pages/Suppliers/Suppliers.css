@@ -294,10 +294,12 @@
 
 .supplier-modal, .supplier-payment {
     width: min(600px, calc(100vw - 28px));
+    max-height: calc(100vh - 36px);
     border-radius: 15px;
     background: #fff;
     box-shadow: 0 25px 65px rgba(4, 20, 44, .3);
-    overflow: hidden
+    overflow-x: hidden;
+    overflow-y: auto
 }
 
 .supplier-modal > header, .supplier-payment > header {
