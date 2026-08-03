@@ -1,4 +1,6 @@
-import {useMemo, useState} from 'react'
+﻿import {useMemo, useState} from 'react'
+import { Button, Footer, Header, Input, Label, Main, Section, Select, Table, TableBody, TableDataCell, TableHead, TableHeaderCell, TableRow, Textarea } from '../../components/MaterialPrimitives/MaterialPrimitives'
+import { Dialog } from '@mui/material'
 import useIndexedDbState from '../../hooks/useIndexedDbState'
 import ActionIcon from '../../components/ActionIcon/ActionIcon'
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog'
@@ -128,36 +130,36 @@ function SupplierForm({supplier, onClose, onSave}) {
         })
     }
     return <div className="supplier-overlay" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-        <section className="supplier-modal">
-            <header><h2>{supplier ? 'Sửa nhà cung cấp' : 'Thêm nhà cung cấp'}</h2>
-                <button onClick={onClose}>×</button>
-            </header>
+        <Section className="supplier-modal">
+            <Header><h2>{supplier ? 'Sửa nhà cung cấp' : 'Thêm nhà cung cấp'}</h2>
+                <Button onClick={onClose}>×</Button>
+            </Header>
             <form onSubmit={submit}>
-                <label className="supplier-field supplier-field--full">Tên nhà cung cấp: <b>*</b><input required
+                <Label className="supplier-field supplier-field--full">Tên nhà cung cấp: <b>*</b><Input required
                                                                                                         name="name"
-                                                                                                        defaultValue={supplier?.name}/></label>
-                <label className="supplier-field">Số điện thoại:<input name="phone"
-                                                                       defaultValue={supplier?.phone}/></label>
-                <label className="supplier-field">Email:<input name="email" type="email"
-                                                               defaultValue={supplier?.email}/></label>
-                <label className="supplier-field supplier-field--full">Địa chỉ:<input name="address"
-                                                                                       defaultValue={supplier?.address}/></label>
-                <label className="supplier-field">Mã số thuế:<input name="tax"
-                                                                    defaultValue={supplier?.tax}/></label>
-                <label className="supplier-field">Người liên hệ:<input name="contact" defaultValue={supplier?.contact}/></label>
-                <label className="supplier-field">Phân loại:<select name="type"
+                                                                                                        defaultValue={supplier?.name}/></Label>
+                <Label className="supplier-field">Số điện thoại:<Input name="phone"
+                                                                       defaultValue={supplier?.phone}/></Label>
+                <Label className="supplier-field">Email:<Input name="email" type="email"
+                                                               defaultValue={supplier?.email}/></Label>
+                <Label className="supplier-field supplier-field--full">Địa chỉ:<Input name="address"
+                                                                                       defaultValue={supplier?.address}/></Label>
+                <Label className="supplier-field">Mã số thuế:<Input name="tax"
+                                                                    defaultValue={supplier?.tax}/></Label>
+                <Label className="supplier-field">Người liên hệ:<Input name="contact" defaultValue={supplier?.contact}/></Label>
+                <Label className="supplier-field">Phân loại:<Select name="type"
                                                                     defaultValue={supplier?.type || 'Nhà cung cấp'}>
                     <option>Nhà cung cấp</option>
                     <option>Vay/Tín dụng</option>
-                </select></label>
-                <label className="supplier-field supplier-field--full">Ghi chú:<textarea rows="4" name="note"
-                                                                                         defaultValue={supplier?.note}/></label>
-                <footer>
-                    <button type="button" onClick={onClose}>Hủy</button>
-                    <button type="submit">Lưu nhà cung cấp</button>
-                </footer>
+                </Select></Label>
+                <Label className="supplier-field supplier-field--full">Ghi chú:<Textarea rows="4" name="note"
+                                                                                         defaultValue={supplier?.note}/></Label>
+                <Footer>
+                    <Button type="button" onClick={onClose}>Hủy</Button>
+                    <Button type="submit">Lưu nhà cung cấp</Button>
+                </Footer>
             </form>
-        </section>
+        </Section>
     </div>
 }
 
@@ -168,19 +170,19 @@ function PaymentForm({supplier, onClose, onSave}) {
         onSave(Number(new FormData(event.currentTarget).get('amount')) || 0)
     }
     return <div className="supplier-overlay" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-        <section className="supplier-payment">
-            <header><h2>Ghi nhận thanh toán</h2>
-                <button onClick={onClose}>×</button>
-            </header>
-            <form onSubmit={submit}><strong>{supplier.name}</strong><p>Công nợ hiện tại: <b>{money(debt)}</b></p><label>Số
-                tiền thanh toán:<input required name="amount" type="number" min="1" max={debt}/></label><label>Nội dung:<textarea
-                rows="3" defaultValue="Thanh toán công nợ nhà cung cấp"/></label>
-                <footer>
-                    <button type="button" onClick={onClose}>Hủy</button>
-                    <button type="submit">Xác nhận</button>
-                </footer>
+        <Section className="supplier-payment">
+            <Header><h2>Ghi nhận thanh toán</h2>
+                <Button onClick={onClose}>×</Button>
+            </Header>
+            <form onSubmit={submit}><strong>{supplier.name}</strong><p>Công nợ hiện tại: <b>{money(debt)}</b></p><Label>Số
+                tiền thanh toán:<Input required name="amount" type="number" min="1" max={debt}/></Label><Label>Nội dung:<Textarea
+                rows="3" defaultValue="Thanh toán công nợ nhà cung cấp"/></Label>
+                <Footer>
+                    <Button type="button" onClick={onClose}>Hủy</Button>
+                    <Button type="submit">Xác nhận</Button>
+                </Footer>
             </form>
-        </section>
+        </Section>
     </div>
 }
 
@@ -241,60 +243,59 @@ function DebtDetails({supplier, onClose, notify}) {
         URL.revokeObjectURL(link.href)
         notify('Đã xuất chi tiết công nợ')
     }
-    return <div className="supplier-overlay supplier-debt-overlay"
-                onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-        <section className="supplier-debt-modal">
-            <header>
+    return <Dialog open onClose={onClose} maxWidth={false}
+                   slotProps={{paper: {className: 'supplier-debt-modal'}}}>
+            <Header>
                 <div><h2>Công nợ phải trả - {supplier.name}</h2><p>Tổng công nợ: <strong>{money(totalDebt)}</strong></p>
                 </div>
-                <button onClick={onClose}>×</button>
-            </header>
+                <Button onClick={onClose}>×</Button>
+            </Header>
             <div className="supplier-debt-tools">
-                <button onClick={exportDebt}>Xuất Excel</button>
-                <label>⌕<input value={query} onChange={(event) => setQuery(event.target.value)}
-                               placeholder="Tìm kiếm công nợ..."/></label><select>
+                <Button onClick={exportDebt}>Xuất Excel</Button>
+                <Label><Input value={query} onChange={(event) => setQuery(event.target.value)}
+                               placeholder="Tìm kiếm công nợ..."/></Label><Select>
                 <option>Tất cả trạng thái</option>
                 <option>Chưa thanh toán</option>
                 <option>Thanh toán một phần</option>
                 <option>Đã thanh toán</option>
-            </select></div>
+            </Select></div>
             <div className="supplier-debt-scroll">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Ngày</th>
-                        <th>Danh mục</th>
-                        <th>Số tiền</th>
-                        <th>Đã thanh toán</th>
-                        <th>Chưa thanh toán</th>
-                        <th>Số hóa đơn</th>
-                        <th>Trạng thái</th>
-                        <th>Ghi chú</th>
-                        <th>Thao tác</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {visible.map((row) => <tr key={row.id}>
-                        <td>{row.date}</td>
-                        <td>{row.category}</td>
-                        <td className="debt-purple">{money(row.amount)}</td>
-                        <td className="debt-green">{money(row.paid)}</td>
-                        <td className="debt-red">{money(Math.max(0, row.amount - row.paid))}</td>
-                        <td>{row.invoice}</td>
-                        <td><span
+                <Table>
+                    <TableHead>
+                    <TableRow>
+                        <TableHeaderCell>Ngày</TableHeaderCell>
+                        <TableHeaderCell>Danh mục</TableHeaderCell>
+                        <TableHeaderCell>Số tiền</TableHeaderCell>
+                        <TableHeaderCell>Đã thanh toán</TableHeaderCell>
+                        <TableHeaderCell>Chưa thanh toán</TableHeaderCell>
+                        <TableHeaderCell>Số hóa đơn</TableHeaderCell>
+                        <TableHeaderCell>Trạng thái</TableHeaderCell>
+                        <TableHeaderCell>Ghi chú</TableHeaderCell>
+                        <TableHeaderCell>Thao tác</TableHeaderCell>
+                    </TableRow>
+                    </TableHead>
+                    <TableBody>
+                    {visible.map((row) => <TableRow key={row.id}>
+                        <TableDataCell>{row.date}</TableDataCell>
+                        <TableDataCell>{row.category}</TableDataCell>
+                        <TableDataCell className="debt-purple">{money(row.amount)}</TableDataCell>
+                        <TableDataCell className="debt-green">{money(row.paid)}</TableDataCell>
+                        <TableDataCell className="debt-red">{money(Math.max(0, row.amount - row.paid))}</TableDataCell>
+                        <TableDataCell>{row.invoice}</TableDataCell>
+                        <TableDataCell><span
                             className={`debt-status debt-status--${row.status.replaceAll(' ', '-').toLowerCase()}`}>{row.status}</span>
-                        </td>
-                        <td>{row.note}</td>
-                        <td className="debt-row-actions"><ActionIcon icon="edit" label="Sửa công nợ"
+                        </TableDataCell>
+                        <TableDataCell>{row.note}</TableDataCell>
+                        <TableDataCell className="debt-row-actions"><ActionIcon icon="edit" label="Sửa công nợ"
                                                                      onClick={() => notify('Đã chọn sửa khoản công nợ')}/><ActionIcon
-                            icon="trash" tone="red" label="Xóa công nợ" onClick={() => setPendingRow(row)}/></td>
-                    </tr>)}
-                    </tbody>
-                </table>
+                            icon="trash" tone="red" label="Xóa công nợ" onClick={() => setPendingRow(row)}/></TableDataCell>
+                    </TableRow>)}
+                    </TableBody>
+                </Table>
             </div>
-            <footer><span>Hiển thị 1-{visible.length} của {rows.length} giao dịch</span>
-                <button onClick={onClose}>Đóng</button>
-            </footer>
+            <Footer><span>Hiển thị 1-{visible.length} của {rows.length} giao dịch</span>
+                <Button onClick={onClose}>Đóng</Button>
+            </Footer>
             {pendingRow &&
                 <ConfirmDialog message={`Bạn có chắc muốn xóa khoản công nợ hóa đơn “${pendingRow.invoice}”?`}
                                onCancel={() => setPendingRow(undefined)} onConfirm={() => {
@@ -302,8 +303,7 @@ function DebtDetails({supplier, onClose, notify}) {
                     setPendingRow(undefined);
                     notify('Đã xóa khoản công nợ')
                 }}/>}
-        </section>
-    </div>
+    </Dialog>
 }
 
 export default function Suppliers() {
@@ -345,83 +345,83 @@ export default function Suppliers() {
         notify('Đã xuất danh sách nhà cung cấp')
     }
 
-    return <main className="suppliers-page">
-        <header className="suppliers-header"><h2>Quản lý nhà cung cấp</h2>
+    return <Main className="suppliers-page">
+        <Header className="suppliers-header"><h2>Quản lý nhà cung cấp</h2>
             <div>
-                <button className="export-suppliers" onClick={exportExcel}>Xuất Excel</button>
-                <button className="add-supplier" onClick={() => {
+                <Button className="export-suppliers" onClick={exportExcel}>Xuất Excel</Button>
+                <Button className="add-supplier" onClick={() => {
                     setEditing(undefined);
                     setFormOpen(true)
                 }}>＋ Thêm nhà cung cấp
-                </button>
+                </Button>
                 <NotificationBell className="suppliers-bell" count={23} />
             </div>
-        </header>
-        <section className="supplier-summary"><label><span>⌕</span><input value={query} onChange={(event) => {
+        </Header>
+        <Section className="supplier-summary"><Label><Input value={query} onChange={(event) => {
             setQuery(event.target.value);
             setPage(1)
-        }} placeholder="Tìm kiếm nhà cung cấp..."/></label>
+        }} placeholder="Tìm kiếm nhà cung cấp..."/></Label>
             <div><span>Tổng công nợ phải trả:</span><strong>{money(debtNcc + debtLoan)}</strong>
                 <p>NCC: <b>{money(debtNcc)}</b></p><p>Vay/Tín dụng: <b>{money(debtLoan)}</b></p></div>
-        </section>
-        <section className="supplier-table-card">
+        </Section>
+        <Section className="supplier-table-card">
             <div className="supplier-table-scroll">
-                <table className="supplier-table">
-                    <thead>
-                    <tr>
-                        <th>Tên nhà cung cấp</th>
-                        <th>Số điện thoại</th>
-                        <th>Email</th>
-                        <th>Địa chỉ</th>
-                        <th>Mã số thuế</th>
-                        <th>Người liên hệ</th>
-                        <th>Ghi chú</th>
-                        <th>Tổng số tiền</th>
-                        <th>Đã thanh toán</th>
-                        <th>Công nợ</th>
-                        <th>Thao tác</th>
-                    </tr>
-                    </thead>
-                    <tbody>{visible.map((supplier) => <tr key={supplier.id}>
-                        <td>
-                            <button className="supplier-name" onClick={() => {
+                <Table className="supplier-table">
+                    <TableHead>
+                    <TableRow>
+                        <TableHeaderCell>Tên nhà cung cấp</TableHeaderCell>
+                        <TableHeaderCell>Số điện thoại</TableHeaderCell>
+                        <TableHeaderCell>Email</TableHeaderCell>
+                        <TableHeaderCell>Địa chỉ</TableHeaderCell>
+                        <TableHeaderCell>Mã số thuế</TableHeaderCell>
+                        <TableHeaderCell>Người liên hệ</TableHeaderCell>
+                        <TableHeaderCell>Ghi chú</TableHeaderCell>
+                        <TableHeaderCell>Tổng số tiền</TableHeaderCell>
+                        <TableHeaderCell>Đã thanh toán</TableHeaderCell>
+                        <TableHeaderCell>Công nợ</TableHeaderCell>
+                        <TableHeaderCell>Thao tác</TableHeaderCell>
+                    </TableRow>
+                    </TableHead>
+                    <TableBody>{visible.map((supplier) => <TableRow key={supplier.id}>
+                        <TableDataCell>
+                            <Button className="supplier-name" onClick={() => {
                                 setEditing(supplier);
                                 setFormOpen(true)
-                            }}>{supplier.name}</button>
-                        </td>
-                        <td>{supplier.phone}</td>
-                        <td>{supplier.email}</td>
-                        <td>{supplier.address}</td>
-                        <td>{supplier.tax}</td>
-                        <td>{supplier.contact}</td>
-                        <td>{supplier.note}</td>
-                        <td className="supplier-total">{money(supplier.total)}</td>
-                        <td className="supplier-paid">{money(supplier.paid)}</td>
-                        <td className="supplier-debt">
-                            <button
-                                onClick={() => setDebtDetails(supplier)}>{money(supplier.total - supplier.paid)}</button>
-                        </td>
-                        <td className="supplier-actions"><ActionIcon icon="add" tone="green" label="Ghi nhận thanh toán"
+                            }}>{supplier.name}</Button>
+                        </TableDataCell>
+                        <TableDataCell>{supplier.phone}</TableDataCell>
+                        <TableDataCell>{supplier.email}</TableDataCell>
+                        <TableDataCell>{supplier.address}</TableDataCell>
+                        <TableDataCell>{supplier.tax}</TableDataCell>
+                        <TableDataCell>{supplier.contact}</TableDataCell>
+                        <TableDataCell>{supplier.note}</TableDataCell>
+                        <TableDataCell className="supplier-total">{money(supplier.total)}</TableDataCell>
+                        <TableDataCell className="supplier-paid">{money(supplier.paid)}</TableDataCell>
+                        <TableDataCell className="supplier-debt">
+                            <Button
+                                onClick={() => setDebtDetails(supplier)}>{money(supplier.total - supplier.paid)}</Button>
+                        </TableDataCell>
+                        <TableDataCell className="supplier-actions"><ActionIcon icon="add" tone="green" label="Ghi nhận thanh toán"
                                                                      onClick={() => setPaying(supplier)}/><ActionIcon
                             icon="edit" label="Sửa nhà cung cấp" onClick={() => {
                             setEditing(supplier);
                             setFormOpen(true)
                         }}/><ActionIcon icon="trash" tone="red" label="Xóa nhà cung cấp"
-                                        onClick={() => setPendingDelete(supplier)}/></td>
-                    </tr>)}</tbody>
-                </table>
+                                        onClick={() => setPendingDelete(supplier)}/></TableDataCell>
+                    </TableRow>)}</TableBody>
+                </Table>
             </div>
             <div className="supplier-toolbar">
                 <span>Hiển thị {visible.length ? (page - 1) * perPage + 1 : 0}-{Math.min(page * perPage, filtered.length)} của {filtered.length} nhà cung cấp</span>
                 <div className="supplier-pages">
-                    <button disabled={page === 1} onClick={() => setPage(page - 1)}>‹</button>
-                    {Array.from({length: pages}, (_, i) => i + 1).map((item) => <button
+                    <Button disabled={page === 1} onClick={() => setPage(page - 1)}>‹</Button>
+                    {Array.from({length: pages}, (_, i) => i + 1).map((item) => <Button
                         className={page === item ? 'active' : ''} key={item}
-                        onClick={() => setPage(item)}>{item}</button>)}
-                    <button disabled={page === pages} onClick={() => setPage(page + 1)}>›</button>
+                        onClick={() => setPage(item)}>{item}</Button>)}
+                    <Button disabled={page === pages} onClick={() => setPage(page + 1)}>›</Button>
                 </div>
             </div>
-        </section>
+        </Section>
         {formOpen && <SupplierForm supplier={editing} onClose={() => setFormOpen(false)} onSave={save}/>}
         {paying && <PaymentForm supplier={paying} onClose={() => setPaying(undefined)} onSave={(amount) => {
             setSuppliers(suppliers.map((item) => item.id === paying.id ? {...item, paid: item.paid + amount} : item));
@@ -436,5 +436,7 @@ export default function Suppliers() {
             notify('Đã xóa nhà cung cấp')
         }}/>}
         {toast && <div className="supplier-toast">{toast}</div>}
-    </main>
+    </Main>
 }
+
+
